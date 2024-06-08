@@ -37,3 +37,5 @@ export const WEAPON_TYPES = {
 }
 
 export const HAS_MASTERY = [0, 1, 2, 4, 9]
+
+export const NAME_SPLITTING_REGEX = /^(?<name>[\w?\s]+)\s\((?<id>\d+)\)$/

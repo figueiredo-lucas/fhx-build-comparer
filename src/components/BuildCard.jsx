@@ -3,7 +3,7 @@ import ItemCard from "./ItemCard"
 import StatsCard from "./StatsCard"
 import { CLASSES, HAS_MASTERY, RACES, RACES_CLASSES } from "../constants"
 import OnHitCard from "./OnHitCard"
-import { discardBuild, isBuildSaved, isBuildUpdated, saveBuild } from "../utils"
+import { discardBuild, isBuildSaved, isBuildUpdated, masteriesFromCharClass, saveBuild } from "../utils"
 
 const BuildCard = ({ build, index, handleChange, removeBuild }) => {
 
@@ -82,15 +82,28 @@ const BuildCard = ({ build, index, handleChange, removeBuild }) => {
                             <div className="label">
                                 <span className="label-text">Character Level</span>
                             </div>
-                            <input type="text" className="input input-sm input-bordered w-full" onChange={e => handleChange('level', e.target.value)} value={build.level} />
+                            <input type="text" className="input input-sm input-bordered" onChange={e => handleChange('level', e.target.value)} value={build.level} />
                         </label>
 
-                        {HAS_MASTERY.includes(parseInt(build.charClass || -1)) && <label className="form-control">
-                            <div className="label">
-                                <span className="label-text">Mastery %</span>
-                            </div>
-                            <input type="text" className="input input-sm input-bordered w-full" onChange={e => handleChange('mastery', e.target.value)} value={build.mastery} />
-                        </label>}
+                        {HAS_MASTERY.includes(parseInt(build.charClass || -1)) &&
+                        <div className="grid grid-cols-2 gap-2">
+                            <label className="form-control">
+                                <div className="label">
+                                    <span className="label-text">Mastery</span>
+                                </div>
+                                <select className="select select-sm select-bordered" value={build.mastery} onChange={e => handleChange('mastery', e.target.value)}>
+                                    <option disabled value="">Pick one</option>
+                                    {masteriesFromCharClass(build.charClass).map(mastery => <option key={mastery.id} value={mastery.id}>{mastery.name}</option>)}
+                                </select>
+                            </label>
+                            <label className="form-control">
+                                <div className="label">
+                                    <span className="label-text">Mastery Level</span>
+                                </div>
+                                <input type="text" className="input input-sm input-bordered" onChange={e => handleChange('masteryLevel', e.target.value)} value={build.masteryLevel} />
+                            </label>
+                        </div>
+                        }
 
                         <label className="form-control">
                             <div className="label">
@@ -131,10 +144,7 @@ const BuildCard = ({ build, index, handleChange, removeBuild }) => {
                             <div className="label">
                                 <span className="label-text">Item</span>
                             </div>
-                            <input type="text" className="input input-sm input-bordered w-full" list="items" onChange={e => {
-                                console.log(e)
-                                handleChange('itemName', e.target.value)
-                            }} value={build.itemName} />
+                            <input type="text" className="input input-sm input-bordered w-full" list="items" onChange={e => handleChange('itemName', e.target.value)} value={build.itemName} />
                         </label>
 
                         <label className="form-control">
@@ -144,7 +154,7 @@ const BuildCard = ({ build, index, handleChange, removeBuild }) => {
                             <input type="text" className="input input-sm input-bordered w-full" onChange={e => handleChange('enchantLevel', e.target.value)} value={build.enchantLevel} />
                         </label>
                     </div>
-                    {build.charClass === '0' && <div className="flex flex-col gap-2 flex-1">
+                    {build.charClass === '0' && build.mastery === '6' && <div className="flex flex-col gap-2 flex-1">
                         <label className="form-control">
                             <div className="label">
                                 <span className="label-text">Secondary Item</span>

@@ -1,0 +1,72 @@
+[
+    {
+        "id": 0,
+        "charClass": 0,
+        "name": "Axe Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.58,
+        "level": 1,
+        "max_level": 100
+    },
+    {
+        "id": 6,
+        "charClass": 0,
+        "name": "Dual Weapon Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.80,
+        "level": 10,
+        "max_level": 80
+    },
+    {
+        "id": 100,
+        "charClass": 1,
+        "name": "Sword Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.62,
+        "level": 1,
+        "max_level": 100
+    },
+    {
+        "id": 200,
+        "charClass": 2,
+        "name": "Bow Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.80,
+        "level": 1,
+        "max_level": 100
+    },
+    {
+        "id": 400,
+        "charClass": 4,
+        "name": "Sword Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.65,
+        "level": 1,
+        "max_level": 100
+    },
+    {
+        "id": 401,
+        "charClass": 4,
+        "name": "Mace Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.65,
+        "level": 1,
+        "max_level": 100
+    },
+    {
+        "id": 900,
+        "charClass": 9,
+        "name": "Polearm Mastery",
+        "value_min_n_1": 1.00,
+        "value_max_n_1": 1.00,
+        "diff_min_max_1": 0.65,
+        "level": 1,
+        "max_level": 100
+    }
+]

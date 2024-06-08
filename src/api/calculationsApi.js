@@ -1,4 +1,5 @@
 import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, MAGIC_OPTS_TMPL, WEAPON_TYPES } from "../constants"
+import { calculateMasteryLevel } from "../utils"
 import versions from '../versions'
 
 const calculationsApi = (version) => {
@@ -106,8 +107,6 @@ const calculationsApi = (version) => {
             weaponDmg.max += secondaryWeaponDmg.max
         }
 
-        
-
         const statDiff = {
             'dex': Math.max(0, parseInt(build.dex.base) - build.item.item_need_dex),
             'str': Math.max(0, parseInt(build.str.base) - build.item.item_need_str)
@@ -115,9 +114,12 @@ const calculationsApi = (version) => {
         const baseDmg = calcBasePhysDmg(build.level, weaponType, build.race, build.charClass,
             parseInt(build.str.base) + parseInt(build.str.bonus || 0), parseInt(build.dex.base) + parseInt(build.dex.bonus || 0), statDiff)
 
+        const mastery = calculateMasteryLevel(build)
+        console.log(mastery)
+
         return {
-            min: Math.floor(baseDmg + (weaponDmg.min * (1 + (parseFloat(build.mastery || 0) / 100)))),
-            max: Math.floor(baseDmg + (weaponDmg.max * (1 + (parseFloat(build.mastery || 0) / 100))))
+            min: Math.floor(baseDmg + (weaponDmg.min * (1 + (parseFloat(mastery || 0) / 100)))),
+            max: Math.floor(baseDmg + (weaponDmg.max * (1 + (parseFloat(mastery || 0) / 100))))
         }
     }
 

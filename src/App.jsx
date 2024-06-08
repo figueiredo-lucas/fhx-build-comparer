@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import BuildCard from './components/BuildCard'
-import { itemFromName, set } from './utils'
+import { itemFromId, set } from './utils'
 import items from './assets/items.json'
 import ls from './api/localStorage'
 import { v4 } from 'uuid'
+import { NAME_SPLITTING_REGEX } from './constants'
 
 const createEmptyBuild = () => ({
     id: v4(),
@@ -12,6 +13,7 @@ const createEmptyBuild = () => ({
     race: '',
     charClass: '',
     mastery: '',
+    masteryLevel: '',
     level: 1,
     str: {
         base: '',
@@ -44,17 +46,33 @@ function App() {
 
         if (field === 'race')
             set(newBuild, 'charClass', '')
-        if (field === 'charClass' && newBuild.charClass !== '0') {
+        if ((field === 'charClass' && newBuild.charClass !== '0')
+            || (field === 'mastery' && newBuild.mastery !== '6')) {
             set(newBuild, 'secondaryItem', null)
-            set(newBuild, 'secondaryItemName', null)
+            set(newBuild, 'secondaryItemName', '')
             set(newBuild, 'secondaryEnchantLevel', 0)
         }
 
-        if (field === 'itemName')
-            set(newBuild, 'item', itemFromName(value) || null)
+        if (field === 'itemName') {
+            const found = value.match(NAME_SPLITTING_REGEX)
+            set(newBuild, 'item', null)
+            if (found) {
+                const { id, name } = found.groups
+                set(newBuild, field, name)
+                set(newBuild, 'item', itemFromId(id) || null)
+            }
+        }
 
-        if (field === 'secondaryItemName')
-            set(newBuild, 'secondaryItem', itemFromName(value) || null)
+        if (field === 'secondaryItemName') {
+            const found = value.match(NAME_SPLITTING_REGEX)
+            set(newBuild, 'secondaryItem', null)
+            console.log(found, value)
+            if (found) {
+                const { id, name } = found.groups
+                set(newBuild, field, name)
+                set(newBuild, 'secondaryItem', itemFromId(id) || null)
+            }
+        }
 
         newBuilds.splice(index, 1, newBuild)
         setBuilds(newBuilds)
@@ -88,7 +106,7 @@ function App() {
                 />)}
             </div>
             <datalist id="items">
-                {items.map(it => <option key={it.id} value={it.item_name}>Level {it.item_need_level}</option>)}
+                {items.map(it => <option key={it.id} value={`${it.item_name} (${it.id})`}>Level {it.item_need_level}</option>)}
             </datalist>
         </>
     )

@@ -1,5 +1,6 @@
 import items from './assets/items.json'
 import magicOpts from './assets/magic-opts.json'
+import masteries from './assets/masteries.json'
 import ls from './api/localStorage'
 
 // https://youmightnotneed.com/lodash
@@ -111,7 +112,18 @@ export const isEqual = (obj1, obj2) => {
 
 export const itemFromName = itemName => items.find(it => it.item_name === itemName)
 
+export const itemFromId = itemId => items.find(it => it.id === +itemId)
+
 export const magicOptFromId = idMagicOpt => magicOpts.find(mo => mo.id_magic_opt === idMagicOpt)
+
+export const masteriesFromCharClass = charClass => masteries.filter(m => m.charClass === +charClass)
+
+export const calculateMasteryLevel = build => {
+    const mastery = masteries.find(m => m.id === +build.mastery)
+    if (!mastery) return 0
+    
+    return mastery.value_min_n_1 + mastery.diff_min_max_1 * (build.masteryLevel - 1)
+}
 
 export const saveBuild = build => {
     const builds = ls.get('fhx.builds') || []
