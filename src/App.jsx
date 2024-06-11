@@ -66,7 +66,6 @@ function App() {
         if (field === 'secondaryItemName') {
             const found = value.match(NAME_SPLITTING_REGEX)
             set(newBuild, 'secondaryItem', null)
-            console.log(found, value)
             if (found) {
                 const { id, name } = found.groups
                 set(newBuild, field, name)

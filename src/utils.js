@@ -151,5 +151,7 @@ export const isBuildSaved = build => {
 export const isBuildUpdated = build => {
     const builds = ls.get('fhx.builds') || []
     const savedBuild = builds.find(b => b.id === build.id)
+    delete build.updatedAt
+    delete savedBuild?.updatedAt
     return !isEqual(build, savedBuild)
 }

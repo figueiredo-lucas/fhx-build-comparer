@@ -115,7 +115,6 @@ const calculationsApi = (version) => {
             parseInt(build.str.base) + parseInt(build.str.bonus || 0), parseInt(build.dex.base) + parseInt(build.dex.bonus || 0), statDiff)
 
         const mastery = calculateMasteryLevel(build)
-        console.log(mastery)
 
         return {
             min: Math.floor(baseDmg + (weaponDmg.min * (1 + (parseFloat(mastery || 0) / 100)))),
