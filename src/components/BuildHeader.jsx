@@ -15,7 +15,6 @@ const BuildHeader = ({ build, index, handleChange, removeBuild }) => {
                     {isBuildSaved(build) ? 'Update' : 'Save'}
                 </button>
                 {isBuildSaved(build) && <button className="btn btn-error btn-sm" onClick={() => {
-                    console.log(build)
                     discardBuild(build)
                     handleChange('updatedAt', null)
                 }}>Discard Save</button>}
