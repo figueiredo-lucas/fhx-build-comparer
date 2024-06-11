@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "release": "npm run build && git checkout gh-pages && rm -rf assets && cp -r dist/assets assets && sed -i 's@/assets@assets@g' dist/index.html && cp dist/index.html . && rm -rf dist && git commit -am 'release' && git push origin gh-pages && git checkout main",
+    "release": "./release.sh",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
