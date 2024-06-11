@@ -1,8 +1,19 @@
-# React + Vite
+# FHX Build Comparer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small tool to make builds and compare them across multiple possibilities, including old versions of balancing.
 
-Currently, two official plugins are available:
+Try it on: https://figueiredo-lucas.github.io/fhx-build-comparer/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## If you want to run the code locally
+
+> Install node and open command line on the game folder
+
+```sh
+# installs all dependencies on the project
+$ npm install
+
+# runs the code
+$ npm run dev
+```
+
+Open on http://localhost:5173
