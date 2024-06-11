@@ -108,10 +108,13 @@ function App() {
                 />)}
             </div>
             <datalist id="items">
-                {items.map(it => <option key={it.id} value={`${it.item_name} (${it.id})`}>Level {it.item_need_level}</option>)}
+                {items
+                    .map(it => <option key={it.id} value={`${it.item_name} (${it.id})`}>Level {it.item_need_level}</option>)}
             </datalist>
             <datalist id="magic-opts">
-                {magicOpts.map(mo => <option key={mo.id_magic_opt} value={mo.display_name}></option>)}
+                {magicOpts
+                    .filter(mo => !!mo.id_magic_opt)
+                    .map(mo => <option key={mo.id_magic_opt} value={mo.display_name}></option>)}
             </datalist>
         </>
     )

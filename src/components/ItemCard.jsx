@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import calculationsApi from "../api/calculationsApi"
 import { MAGIC_OPTS_TMPL } from "../constants"
 import { magicOptFromId } from "../utils"
 import MagicOptsDrawer from "./MagicOptsDrawer"
+import { v4 } from "uuid"
 
 const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, version = 'v2' }) => {
 
@@ -10,6 +11,7 @@ const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, v
     const { getMagicDmg, getPhysDmg } = useMemo(() => calculationsApi(version), [version])
     const itemPhysDmg = getPhysDmg(item, enchantLevel, magicOpts)
     const itemMagicDmg = getMagicDmg(item, enchantLevel, magicOpts)
+    const drawerId = v4()
 
     return (
         <div className="item-card">
@@ -60,19 +62,20 @@ const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, v
                                 const id = item[MAGIC_OPTS_TMPL[0].replace('[i]', i)]
                                 const value = item[MAGIC_OPTS_TMPL[1].replace('[i]', i)]
                                 const magicOpt = magicOptFromId(id)
-                                return <span key={id}>{magicOpt.display_name.replace('[R]', `+${value}`)}</span>
+                                if (magicOpt)
+                                    return <span key={id}>{magicOpt.display_name.replace('[R]', `+${value}`)}</span>
                             })}
                     </div>}
 
-                    {!item.item_magic_att_1 && <label htmlFor="check-drawer" className="col-span-2 cursor-pointer flex flex-col text-success pt-2">
+                    {!item.item_magic_att_1 && <label htmlFor={drawerId} className="col-span-2 cursor-pointer flex flex-col text-success pt-2">
                         {magicOpts.filter(i => !!i.name).map((i, idx) => <span key={idx}>{i.name.replace('[R]', `+${i.value}`)}</span>)}
-                        <span className="text-primary pt-2" htmlFor="check-drawer">Edit Magic Opts</span>
+                        <span className="text-primary pt-2" htmlFor={drawerId}>Edit Magic Opts</span>
                     </label>}
 
                 </div>
 
             </div>
-            <MagicOptsDrawer itemKey={itemKey} magicOpts={magicOpts} handleChange={handleChange} />
+            <MagicOptsDrawer id={drawerId} itemKey={itemKey} magicOpts={magicOpts} handleChange={handleChange} />
         </div>
     )
 }

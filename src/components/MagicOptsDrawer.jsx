@@ -1,13 +1,14 @@
 import React from 'react'
+import { MAX_MAGIC_OPTS } from '../constants'
 
-const MagicOptsDrawer = ({ itemKey, magicOpts, handleChange }) => {
+const MagicOptsDrawer = ({ id = 'check-drawer', itemKey, magicOpts, handleChange }) => {
     return (
         <>
-            <input type="checkbox" id="check-drawer" className="bottom-drawer-toggle" />
+            <input type="checkbox" id={id} className="bottom-drawer-toggle" />
             <div className="bottom-drawer">
-                <label className="bottom-drawer-overlay" htmlFor="check-drawer"></label>
+                <label className="bottom-drawer-overlay" htmlFor={id}></label>
                 <div className="bottom-drawer-data">
-                    {new Array(6).fill(0).map((_, idx) =>
+                    {new Array(MAX_MAGIC_OPTS).fill(0).map((_, idx) =>
                         <div key={idx} className="grid grid-cols-4 join">
                             <input
                                 type="text"

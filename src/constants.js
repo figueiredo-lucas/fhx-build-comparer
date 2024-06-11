@@ -25,6 +25,8 @@ export const MAGIC_OPTS_TMPL = ['item_magic_att_[i]', 'item_magic_att_[i]_result
 export const MAGIC_OPTS_PYHS = [111, 304]
 export const MAGIC_OPTS_MAGIC = [113, 306]
 
+export const MAX_MAGIC_OPTS = 2
+
 export const WEAPON_TYPES = {
     0: 'melee',
     1: 'ranged',
