@@ -2,6 +2,7 @@ import { useState } from 'react'
 import BuildCard from './components/BuildCard'
 import { itemFromId, set } from './utils'
 import items from './assets/items.json'
+import magicOpts from './assets/magic-opts.json'
 import ls from './api/localStorage'
 import { v4 } from 'uuid'
 import { NAME_SPLITTING_REGEX } from './constants'
@@ -29,15 +30,17 @@ const createEmptyBuild = () => ({
     },
     item: null,
     itemName: '',
+    itemMagicOpts: [],
     secondaryItem: null,
     secondaryItemName: '',
+    secondaryItemMagicOpts: [],
     enchantLevel: 0,
     secondaryEnchantLevel: 0
 })
 
 function App() {
 
-    const [builds, setBuilds] = useState(ls.get('fhx.builds') || [createEmptyBuild()])
+    const [builds, setBuilds] = useState(ls.get('fhx.builds')?.length ? ls.get('fhx.builds') : [createEmptyBuild()])
 
     const updateBuildInfo = (index, field, value) => {
         const newBuilds = [...builds]
@@ -106,6 +109,9 @@ function App() {
             </div>
             <datalist id="items">
                 {items.map(it => <option key={it.id} value={`${it.item_name} (${it.id})`}>Level {it.item_need_level}</option>)}
+            </datalist>
+            <datalist id="magic-opts">
+                {magicOpts.map(mo => <option key={mo.id_magic_opt} value={mo.display_name}></option>)}
             </datalist>
         </>
     )

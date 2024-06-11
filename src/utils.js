@@ -116,6 +116,8 @@ export const itemFromId = itemId => items.find(it => it.id === +itemId)
 
 export const magicOptFromId = idMagicOpt => magicOpts.find(mo => mo.id_magic_opt === idMagicOpt)
 
+export const magicOptFromName = magicOptName => magicOpts.find(mo => mo.display_name === magicOptName)
+
 export const masteriesFromCharClass = charClass => masteries.filter(m => m.charClass === +charClass)
 
 export const calculateMasteryLevel = build => {

@@ -80,18 +80,6 @@
         "display_name": "Stamina Regeneration [R]%"
     },
     {
-        "id_magic_opt": 204,
-        "display_name": "Maximum Durability [R]"
-    },
-    {
-        "id_magic_opt": 205,
-        "display_name": "Accuracy [R]%"
-    },
-    {
-        "id_magic_opt": 206,
-        "display_name": "Evade Chance [R]%"
-    },
-    {
         "id_magic_opt": 301,
         "display_name": "Maximum Health [R]%"
     },
@@ -128,10 +116,6 @@
         "display_name": "Cast Speed [R]%"
     },
     {
-        "id_magic_opt": 403,
-        "display_name": "Level Reduce [R]"
-    },
-    {
         "id_magic_opt": 404,
         "display_name": "Accuracy [R]%"
     },
@@ -142,9 +126,5 @@
     {
         "id_magic_opt": 501,
         "display_name": "Movement Speed [R]%"
-    },
-    {
-        "id_magic_opt": 502,
-        "display_name": "Cast Speed [R]%"
     }
 ]

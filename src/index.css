@@ -17,3 +17,39 @@
 .glass-extra {
     @apply bg-base-200/50 shadow-none bg-none;
 }
+
+.bottom-drawer {
+    @apply absolute bottom-0 w-full h-full flex flex-col overflow-hidden rounded-2xl invisible;
+
+    .bottom-drawer-overlay {
+        @apply bg-base-100/20 backdrop-blur-[0px] flex-1 z-10 transition-all;
+    }
+
+    .bottom-drawer-data {
+        @apply bg-base-200 p-2 max-md:p-1 grid gap-2 absolute z-10 bottom-[-200px] transition-all delay-0;
+    }
+}
+
+.bottom-drawer-toggle {
+    @apply hidden;
+}
+
+.bottom-drawer-toggle:checked ~ .bottom-drawer {
+    @apply visible;
+
+    .bottom-drawer-overlay {
+        @apply backdrop-blur-[2px];
+    }
+
+    .bottom-drawer-data {
+        @apply bottom-0 delay-150;
+    }
+}
+
+.item-card {
+    @apply min-h-0 transition-all delay-150 rounded-2xl bg-base-100 relative;
+}
+
+.item-card:has(.bottom-drawer-toggle:checked) {
+    @apply min-h-[400px]  delay-0;
+}

@@ -25,8 +25,22 @@ const BuildCard = ({ build, index, handleChange, removeBuild }) => {
                 <ItemDataCard build={build} handleChange={handleChange} />
                 <div className="grid grid-cols-2 gap-2">
                     {!build.item && build.secondaryItem && <div></div>}
-                    {build.item && <ItemCard item={build.item} enchantLevel={build.enchantLevel} version={build.version} />}
-                    {build.secondaryItem && <ItemCard item={build.secondaryItem} enchantLevel={build.secondaryEnchantLevel} version={build.version} />}
+                    {build.item && <ItemCard
+                        itemKey="itemMagicOpts"
+                        item={build.item}
+                        enchantLevel={build.enchantLevel}
+                        magicOpts={build.itemMagicOpts}
+                        handleChange={handleChange}
+                        version={build.version}
+                    />}
+                    {build.secondaryItem && <ItemCard
+                        itemKey="secondaryItemMagicOpts"
+                        item={build.secondaryItem}
+                        enchantLevel={build.secondaryEnchantLevel}
+                        magicOpts={build.secondaryItemMagicOpts}
+                        handleChange={handleChange}
+                        version={build.version}
+                    />}
                 </div>
                 <div className="grid gap-2 grid-cols-2">
                     <StatsCard build={build} version={build.version} />
