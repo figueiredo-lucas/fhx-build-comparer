@@ -139,7 +139,7 @@ export const saveBuild = build => {
 export const discardBuild = build => {
     const builds = ls.get('fhx.builds') || []
     const idx = builds.findIndex(b => b.id === build.id)
-    builds.splice(idx, 1, build)
+    builds.splice(idx, 1)
     ls.set('fhx.builds', builds)
 }
 

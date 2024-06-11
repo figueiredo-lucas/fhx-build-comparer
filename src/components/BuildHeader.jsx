@@ -1,5 +1,5 @@
 import React from 'react'
-import { isBuildSaved, isBuildUpdated, saveBuild } from '../utils'
+import { discardBuild, isBuildSaved, isBuildUpdated, saveBuild } from '../utils'
 
 const BuildHeader = ({ build, index, handleChange, removeBuild }) => {
     return (
@@ -12,11 +12,12 @@ const BuildHeader = ({ build, index, handleChange, removeBuild }) => {
                     saveBuild(build)
                     handleChange('updatedAt', Date.now())
                 }} disabled={isBuildSaved(build) && !isBuildUpdated(build)}>
-                    {isBuildSaved(build) && isBuildUpdated(build) ? 'Update' : 'Save'}
+                    {isBuildSaved(build) ? 'Update' : 'Save'}
                 </button>
                 {isBuildSaved(build) && <button className="btn btn-error btn-sm" onClick={() => {
+                    console.log(build)
                     discardBuild(build)
-                    removeBuild(index)
+                    handleChange('updatedAt', null)
                 }}>Discard Save</button>}
                 {!isBuildSaved(build) && <button className="btn btn-error btn-sm" onClick={() => removeBuild(index)}>Delete</button>}
             </div>
