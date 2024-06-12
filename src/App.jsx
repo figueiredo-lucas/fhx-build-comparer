@@ -88,6 +88,10 @@ function App() {
         setBuilds(newBuilds)
     }
 
+    const duplicateBuild = index => {
+        setBuilds([...builds, JSON.parse(JSON.stringify(builds[index]))])
+    }
+
     return (
         <>
             <div className="p-6 -m-6 max-md:-m-2 mb-4 sticky top-0 z-10 flex items-center justify-center gap-4 glass glass-extra">
@@ -105,6 +109,7 @@ function App() {
                     index={index}
                     handleChange={(field, value) => updateBuildInfo(index, field, value)}
                     removeBuild={removeBuild}
+                    duplicateBuild={duplicateBuild}
                 />)}
             </div>
             <datalist id="items">

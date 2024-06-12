@@ -6,13 +6,13 @@ import CharDataCard from "./CharDataCard"
 import ItemDataCard from "./ItemDataCard"
 import BuildHeader from "./BuildHeader"
 
-const BuildCard = ({ build, index, handleChange, removeBuild }) => {
+const BuildCard = ({ build, index, handleChange, removeBuild, duplicateBuild }) => {
 
     return (
         <div className="card card-compact shadow-xl bg-base-300 p-0 px-2">
 
             <div className="card-body max-md:!px-2">
-                <BuildHeader build={build} index={index} handleChange={handleChange} removeBuild={removeBuild} />
+                <BuildHeader build={build} index={index} handleChange={handleChange} removeBuild={removeBuild} duplicateBuild={duplicateBuild} />
                 {/* <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text">Build name</span>
