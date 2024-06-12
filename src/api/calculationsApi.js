@@ -1,6 +1,7 @@
 import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, MAGIC_OPTS_TMPL, WEAPON_TYPES } from "../constants"
 import { calculateMasteryLevel, magicOptFromName } from "../utils"
 import versions from '../versions'
+import items from '../assets/items.json'
 
 const calculationsApi = (version) => {
 
@@ -44,6 +45,30 @@ const calculationsApi = (version) => {
         const intPerPoint = calcBaseDmg(types.magic.int, level)
         const dmg = base + (intPerPoint * int * getGlassCannonPercent("intel", statsDiff))
         return Math.floor(dmg * raceClass[race].factor * raceClass[race].classes[charClass].magic)
+    }
+
+    const getDiffFromClosestWeapon = (item, level, baseStr, baseDex, baseInt) => {
+        if (!item) return {}
+    
+        const type = item.item_type
+        const diff = {}
+        let levelDiff = level - item.item_need_level
+    
+        diff.str = Math.max(0, baseStr - item.item_need_str)
+        if (item.item_need_dex) diff.dex = Math.max(0, baseDex - item.item_need_dex)
+        if (item.item_need_str) diff.intel = Math.max(0, baseInt - item.item_need_str)
+    
+        for (const it of items) {
+            if (it.item_type === type && level >= it.item_need_level && levelDiff > (level - it.item_need_level)) {
+                levelDiff = level - it.item_need_level;
+                diff.str = Math.max(0, baseStr - it.item_need_str)
+                if (it.item_need_dex != -1)
+                    diff.dex = Math.max(0, baseDex - it.item_need_dex)
+                if (it.item_need_str != -1)
+                    diff.intel = Math.max(0, baseInt - it.item_need_str)
+            }
+        }
+        return diff
     }
 
     const getItemMagicOpts = (item, filter) =>
@@ -122,10 +147,8 @@ const calculationsApi = (version) => {
             weaponDmg.max += secondaryWeaponDmg.max
         }
 
-        const statDiff = {
-            'dex': Math.max(0, parseInt(build.dex.base) - build.item.item_need_dex),
-            'str': Math.max(0, parseInt(build.str.base) - build.item.item_need_str)
-        }
+        const statDiff = getDiffFromClosestWeapon(build.item, build.level, parseInt(build.str.base), parseInt(build.dex.base), 0)
+
         const baseDmg = calcBasePhysDmg(build.level, weaponType, build.race, build.charClass,
             parseInt(build.str.base) + parseInt(build.str.bonus || 0), parseInt(build.dex.base) + parseInt(build.dex.bonus || 0), statDiff)
 
@@ -142,11 +165,9 @@ const calculationsApi = (version) => {
             || !build.level || !build.int.base || WEAPON_TYPES[build.item.item_type] !== 'magic') return { min: 0, max: 0 }
 
         const weaponDmg = getMagicDmg(build.item, build.enchantLevel, build.itemMagicOpts)
-        console.log(weaponDmg)
 
-        const statDiff = {
-            'intel': Math.max(0, parseInt(build.int.base) - build.item.item_need_int)
-        }
+        const statDiff = getDiffFromClosestWeapon(build.item, build.level, 0, 0, parseInt(build.int.base))
+        
         const baseDmg = calcBaseMagicDmg(build.level, build.race, build.charClass,
             parseInt(build.int.base) + parseInt(build.int.bonus || 0), statDiff)
 
