@@ -68,7 +68,7 @@ const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, v
                     </div>}
 
                     {!item.item_magic_att_1 && <label htmlFor={drawerId} className="col-span-2 cursor-pointer flex flex-col text-success pt-2">
-                        {magicOpts.filter(i => !!i.name).map((i, idx) => <span key={idx}>{i.name.replace('[R]', `+${i.value || 0}`)}</span>)}
+                        {magicOpts.filter(i => !!i.name).map((i, idx) => <span key={idx}>{i.name.trim().replace('[R]', `+${parseInt(i.value || 0)}`)}</span>)}
                         <span className="text-primary pt-2" htmlFor={drawerId}>Edit Magic Opts</span>
                     </label>}
 

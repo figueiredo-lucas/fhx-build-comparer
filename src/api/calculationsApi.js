@@ -60,7 +60,7 @@ const calculationsApi = (version) => {
             .map(mo => {
                 const mOpt = magicOptFromName(mo.name)
                 if (mOpt)
-                    return { id: mOpt.id_magic_opt, value: +mo.value }
+                    return { id: mOpt.id_magic_opt, value: parseInt(mo.value) }
                 return { id: null }
             })
             .filter(({ id }) => !!id && filter.includes(id))
