@@ -51,5 +51,5 @@
 }
 
 .item-card:has(.bottom-drawer-toggle:checked) {
-    @apply min-h-[400px] delay-0; /* must be 400px when there are all magic opts */
+    @apply max-md:min-h-[228px] min-h-[400px] delay-0; /* must be 400px when there are all magic opts */
 }

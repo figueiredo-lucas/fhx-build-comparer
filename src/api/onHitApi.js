@@ -37,18 +37,24 @@ const onHitApi = (version) => {
 
     // Function to calculate base value based on factor and dexterity
     const calculateBase = (value, dex) => {
+        if (version === 'v1')
+            return Math.pow(value.factor, dex) + value.base
         return Math.pow(dex, value.factor)
     }
 
     // Function to calculate evasiveness
     const calculateEvasiveness = (race, dex) => {
         const baseValue = calculateBase(evade, dex)
+        if (version === 'v1')
+            return Math.min(evade.limit, (baseValue * evade.races[race]) / 100)
         return Math.min(evade.limit, (baseValue * evade.races[race] + evade.base) / 100)
     }
 
     // Function to calculate critical chance
     const calculateCritical = (race, dex) => {
         const baseValue = calculateBase(crit, dex)
+        if (version === 'v1')
+            return Math.min(crit.limit, (baseValue * crit.races[race]) / 100)
         return Math.min(crit.limit, (baseValue * crit.races[race] + crit.base) / 100)
     }
 

@@ -9,7 +9,9 @@ const OnHitCard = ({ build, version = 'v2' }) => {
         calculateEvasiveness
     } = useMemo(() => onHitApi(version), [version])
 
-    const dex = parseInt(build.dex.base || 0) + parseInt(build.dex.bonus || 0) / 3
+    const denominator = version === 'v1' ? 1 : 3
+
+    const dex = parseInt(build.dex.base || 0) + parseInt(build.dex.bonus || 0) / denominator
     const str = parseInt(build.str.base || 0) + parseInt(build.str.bonus || 0)
     
     return (

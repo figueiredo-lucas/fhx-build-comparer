@@ -124,7 +124,8 @@ export const calculateMasteryLevel = build => {
     const mastery = masteries.find(m => m.id === +build.mastery)
     if (!mastery) return 0
     
-    return mastery.value_min_n_1 + mastery.diff_min_max_1 * (build.masteryLevel - 1)
+    // gotta remove this mastery floor rounding
+    return Math.floor(mastery.value_min_n_1 + mastery.diff_min_max_1 * (build.masteryLevel - 1))
 }
 
 export const saveBuild = build => {

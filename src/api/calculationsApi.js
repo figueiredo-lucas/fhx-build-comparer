@@ -35,7 +35,7 @@ const calculationsApi = (version) => {
         const dexPerPoint = calcBaseDmg(types[weaponType].dex, level)
 
         const dmg = base + (strPerPoint * str * getGlassCannonPercent("str", statsDiff)) + (dexPerPoint * dex * getGlassCannonPercent("dex", statsDiff))
-        return Math.floor(dmg * raceClass[race].factor * raceClass[race].classes[charClass][weaponType])
+        return Math.floor(Math.floor(dmg) * raceClass[race].factor * raceClass[race].classes[charClass][weaponType])
     }
 
     // Function to calculate base magic damage with weapon
