@@ -6,7 +6,7 @@ const BuildHeader = ({ build, index, handleChange, removeBuild, duplicateBuild }
         <div className="card-title flex justify-between">
             <div className="flex gap-2">
                 <select className="select select-sm select-bordered" value={build.version} onChange={e => handleChange('version', e.target.value)}>
-                    {['v1', 'v2'].map(k => <option key={k} value={k}>{k}</option>)}
+                    {['v1', 'v2', 'v3'].map(k => <option key={k} value={k}>{k}</option>)}
                 </select>
             </div>
             <div className="flex gap-2">

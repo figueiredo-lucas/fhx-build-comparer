@@ -42,20 +42,31 @@ const onHitApi = (version) => {
         return Math.pow(dex, value.factor)
     }
 
+    const getGlassCannonPercent = (glassCannon, dexDiff) => {
+        return (Math.pow(Math.exp(glassCannon.factor), glassCannon.growth * dexDiff) - 1) * 100
+    }
+
     // Function to calculate evasiveness
-    const calculateEvasiveness = (race, dex) => {
+    const calculateEvasiveness = (race, dex, dexDiff) => {
         const baseValue = calculateBase(evade, dex)
+        let gcGrowth = 0
         if (version === 'v1')
             return Math.min(evade.limit, (baseValue * evade.races[race]) / 100)
-        return Math.min(evade.limit, (baseValue * evade.races[race] + evade.base) / 100)
+        if (version === 'v3')
+            gcGrowth = getGlassCannonPercent(evade.glassCannon, dexDiff)
+        return Math.min(evade.limit, (baseValue * evade.races[race] + evade.base + gcGrowth) / 100)
     }
 
     // Function to calculate critical chance
-    const calculateCritical = (race, dex) => {
+    const calculateCritical = (race, dex, dexDiff) => {
         const baseValue = calculateBase(crit, dex)
+        let gcGrowth = 0
         if (version === 'v1')
             return Math.min(crit.limit, (baseValue * crit.races[race]) / 100)
-        return Math.min(crit.limit, (baseValue * crit.races[race] + crit.base) / 100)
+        if (version === 'v3')
+            gcGrowth = getGlassCannonPercent(crit.glassCannon, dexDiff)
+        console.log(gcGrowth)
+        return Math.min(crit.limit, (baseValue * crit.races[race] + crit.base + gcGrowth) / 100)
     }
 
     // Function to calculate block chance

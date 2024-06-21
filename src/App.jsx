@@ -47,10 +47,20 @@ function App() {
         const newBuild = { ...newBuilds[index] }
         set(newBuild, field, value)
 
-        if (field === 'race')
+        if (field === 'race') {
             set(newBuild, 'charClass', '')
-        if ((field === 'charClass' && newBuild.charClass !== '0')
+            set(newBuild, 'mastery', '')
+        }
+
+        if (field === 'charClass') {
+            set(newBuild, 'mastery', '')
+            set(newBuild, 'masteryLevel', '')
+        }
+        
+        if (field === 'race'
+            || (field === 'charClass' && newBuild.charClass !== '0')
             || (field === 'mastery' && newBuild.mastery !== '6')) {
+            set(newBuild, 'masteryLevel', '')
             set(newBuild, 'secondaryItem', null)
             set(newBuild, 'secondaryItemName', '')
             set(newBuild, 'secondaryEnchantLevel', 0)
@@ -89,7 +99,7 @@ function App() {
     }
 
     const duplicateBuild = index => {
-        setBuilds([...builds, JSON.parse(JSON.stringify(builds[index]))])
+        setBuilds([...builds, {...JSON.parse(JSON.stringify(builds[index])), id: v4()}])
     }
 
     return (

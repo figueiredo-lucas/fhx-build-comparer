@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import onHitApi from '../api/onHitApi'
+import { getDiffFromClosestWeapon } from '../api/utils'
 
 const OnHitCard = ({ build, version = 'v2' }) => {
     const {
@@ -13,6 +14,8 @@ const OnHitCard = ({ build, version = 'v2' }) => {
 
     const dex = parseInt(build.dex.base || 0) + parseInt(build.dex.bonus || 0) / denominator
     const str = parseInt(build.str.base || 0) + parseInt(build.str.bonus || 0)
+    const dexDiff = getDiffFromClosestWeapon(build.item, build.level, 0, parseInt(build.dex.base || 0), 0).dex
+    console.log(dexDiff)
     
     return (
         <div className="card card-compact bg-primary text-primary-content p-2 max-md:p-1">
@@ -21,9 +24,9 @@ const OnHitCard = ({ build, version = 'v2' }) => {
                 <span>Accuracy</span>
                 <span>{((calculateAccuracy(build.race, dex) || 0) * 100).toFixed(2)}%</span>
                 <span>Critical</span>
-                <span>{((calculateCritical(build.race, dex) || 0) * 100).toFixed(2)}%</span>
+                <span>{((calculateCritical(build.race, dex, dexDiff) || 0) * 100).toFixed(2)}%</span>
                 <span>Evade</span>
-                <span>{((calculateEvasiveness(build.race, dex) || 0) * 100).toFixed(2)}%</span>
+                <span>{((calculateEvasiveness(build.race, dex, dexDiff) || 0) * 100).toFixed(2)}%</span>
                 <span>Block</span>
                 <span>{calculateBlockChance(build.level, str).toFixed(2)}%</span>
             </div>
