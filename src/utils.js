@@ -1,6 +1,6 @@
 import items from './assets/items.json'
 import magicOpts from './assets/magic-opts.json'
-import masteries from './assets/masteries.json'
+import masteries from './assets/masteries'
 import ls from './api/localStorage'
 
 // https://youmightnotneed.com/lodash

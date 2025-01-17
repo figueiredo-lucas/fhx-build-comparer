@@ -1,15 +1,19 @@
 import DebugCard from "./DebugCard"
-import ItemCard from "./ItemCard"
 import StatsCard from "./StatsCard"
 import OnHitCard from "./OnHitCard"
+import RegenCard from "./RegenCard"
 import CharDataCard from "./CharDataCard"
-import ItemDataCard from "./ItemDataCard"
 import BuildHeader from "./BuildHeader"
+import SetBuilderModal from "./SetBuilderModal"
+import { useState } from "react"
 
 const BuildCard = ({ build, index, handleChange, removeBuild, duplicateBuild }) => {
 
+    const [showInventory, setShowInventory] = useState(false)
+
     return (
         <div className="card card-compact shadow-xl bg-base-300 p-0 px-2">
+            {showInventory && <SetBuilderModal build={build} handleChange={handleChange} setShowInventory={setShowInventory} />}
 
             <div className="card-body max-md:!px-2">
                 <BuildHeader build={build} index={index} handleChange={handleChange} removeBuild={removeBuild} duplicateBuild={duplicateBuild} />
@@ -21,7 +25,8 @@ const BuildCard = ({ build, index, handleChange, removeBuild, duplicateBuild }) 
                 </label> */}
                 <div className="divider mb-0">Character data</div>
                 <CharDataCard build={build} handleChange={handleChange} />
-                <div className="divider my-0">Item data</div>
+                <button className="btn btn-link" onClick={() => setShowInventory(true)}>Inventory</button>
+                {/* <div className="divider my-0">Item data</div>
                 <ItemDataCard build={build} handleChange={handleChange} />
                 <div className="grid grid-cols-2 gap-2">
                     {!build.item && build.secondaryItem && <div></div>}
@@ -41,10 +46,13 @@ const BuildCard = ({ build, index, handleChange, removeBuild, duplicateBuild }) 
                         handleChange={handleChange}
                         version={build.version}
                     />}
-                </div>
+                </div> */}
                 <div className="grid gap-2 grid-cols-2">
                     <StatsCard build={build} version={build.version} />
-                    <OnHitCard build={build} version={build.version} />
+                    <div className="grid gap-2">
+                        <OnHitCard build={build} version={build.version} />
+                        <RegenCard build={build} version={build.version} />
+                    </div>
                     {window.showDebug && <DebugCard build={build} version={build.version} />}
                 </div>
             </div>

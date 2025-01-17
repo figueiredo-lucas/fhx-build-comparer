@@ -75,5 +75,211 @@
     "blockChance": {
         "levelGrowth": 0.1,
         "strGrowth": 0.2
+    },
+    "regeneration": {
+        "hp": {
+            "growth": 1.02,
+            "base": 11
+        },
+        "mp": {
+            "growth": 1.015,
+            "base": 11
+        },
+        "sp": {
+            "growth": 1.01,
+            "base": 8
+        }
+    },
+    "constitution": {
+        "hp": {
+            "statConstant": 20,
+            "expConstant": 0.0091,
+            "progFactor": 1.3,
+            "races": {
+                "1": {
+                    "factor": 1,
+                    "minValue": 60,
+                    "classes": {
+                        "0": { "factor": 1.35 },
+                        "1": { "factor": 1.25 },
+                        "2": { "factor": 0.8 },
+                        "4": { "factor": 1.2 }
+                    }
+                },
+                "2" :{
+                    "factor": 0.6,
+                    "minValue": 100,
+                    "classes": {
+                        "2": { "factor": 1.15 },
+                        "5": { "factor": 1 },
+                        "7": { "factor": 1.1 },
+                        "9": { "factor": 1.4 }
+                    }
+                },
+                "3": {
+                    "factor": 0.65,
+                    "minValue": 80,
+                    "classes": {
+                        "0": { "factor": 1.45 },
+                        "2": { "factor": 1.1 },
+                        "5": { "factor": 1 },
+                        "9": { "factor": 1.35 }
+                    }
+                }
+            }
+        },
+        "mp": {
+            "statConstant": 19,
+            "expConstant": 0.006,
+            "progFactor": 1.5,
+            "races": {
+                "1": {
+                    "factor": 0.6,
+                    "minValue": 60,
+                    "classes": {
+                        "0": { "factor": 0.95 },
+                        "1": { "factor": 0.9 },
+                        "2": { "factor": 1 },
+                        "4": { "factor": 1.1 }
+                    }
+                },
+                "2": {
+                    "factor": 1,
+                    "minValue": 60,
+                    "classes": {
+                        "2": { "factor": 0.9 },
+                        "5": { "factor": 1.4 },
+                        "7": { "factor": 1.35 },
+                        "9": { "factor": 1 }
+                    }
+                },
+                "3": {
+                    "factor": 0.7,
+                    "minValue": 60,
+                    "classes": {
+                        "0": { "factor": 0.9 },
+                        "2": { "factor": 1.1 },
+                        "5": { "factor": 1.6 },
+                        "9": { "factor": 1.3 }
+                    }
+                }
+            }
+        },
+        "sp": {
+            "statConstant": 15,
+            "expConstant": 0.003,
+            "progFactor": 1,
+            "races": {
+                "1": {
+                    "factor": 0.8,
+                    "minValue": 60,
+                    "classes": {
+                        "0": { "factor": 1.2 },
+                        "1": { "factor": 1.1 },
+                        "2": { "factor": 1.3 },
+                        "4": { "factor": 1 }
+                    }
+                },
+                "2": {
+                    "factor": 0.6,
+                    "minValue": 60,
+                    "classes": {
+                        "2": { "factor": 1.95 },
+                        "5": { "factor": 1 },
+                        "7": { "factor": 1.05 },
+                        "9": { "factor": 1.8 }
+                    }
+                },
+                "3": {
+                    "factor": 0.9,
+                    "minValue": 60,
+                    "classes": {
+                        "0": { "factor": 1.2 },
+                        "2": { "factor": 1.4 },
+                        "5": { "factor": 1 },
+                        "9": { "factor": 1.3 }
+                    }
+                }
+            }
+        },
+        "defense": {
+            "physical": {
+                "expFactorBase": 0.085,
+                "base": 1.5,
+                "factor": 0.25,
+                "races": {
+                    "1": {
+                        "factor": 1,
+                        "initial": -10,
+                        "classes": {
+                            "0": { "factor": 0.8 },
+                            "1": { "factor": 1.1 },
+                            "2": { "factor": 0.7 },
+                            "4": { "factor": 1.05 }
+                            
+                        }
+                    },
+                    "2": {
+                        "factor": 0.85,
+                        "initial": -6,
+                        "classes": {
+                            "2": { "factor": 0.67 },
+                            "5": { "factor": 0.6 },
+                            "7": { "factor": 0.75 },
+                            "9": { "factor": 0.85 }
+                            
+                        }
+                    },
+                    "3": {
+                        "factor": 0.95,
+                        "initial": -7,
+                        "classes": {
+                            "0": { "factor": 0.8 },
+                            "2": { "factor": 0.65 },
+                            "5": { "factor": 0.6 },
+                            "9": { "factor": 0.78 }
+                            
+                        }
+                    }
+                }
+            },
+            "magical": {
+                "expFactorBase": 0.1,
+                "base": 1.3,
+                "factor": 0.25,
+                "races": {
+                    "1": {
+                        "factor": 0.85,
+                        "initial": 0,
+                        "classes": {
+                            "0": { "factor": 0.85 },
+                            "1": { "factor": 0.8 },
+                            "2": { "factor": 0.9 },
+                            "4": { "factor": 1.1 }
+                        }
+                    },
+                    "2": {
+                        "factor": 1,
+                        "initial": -4,
+                        "classes": {
+                            "2": { "factor": 0.85 },
+                            "5": { "factor": 1 },
+                            "7": { "factor": 1.1 },
+                            "9": { "factor": 0.9 }
+                        }
+                    },
+                    "3": {
+                        "factor": 0.9,
+                        "initial": -3,
+                        "classes": {
+                            "0": { "factor": 0.85 },
+                            "2": { "factor": 0.8 },
+                            "5": { "factor": 1 },
+                            "9": { "factor": 0.9 }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import onHitApi from '../api/onHitApi'
 import { getDiffFromClosestWeapon } from '../api/utils'
 
-const OnHitCard = ({ build, version = 'v2' }) => {
+const OnHitCard = ({ build, version = 'v3' }) => {
     const {
         calculateAccuracy,
         calculateBlockChance,
@@ -15,7 +15,6 @@ const OnHitCard = ({ build, version = 'v2' }) => {
     const dex = parseInt(build.dex.base || 0) + parseInt(build.dex.bonus || 0) / denominator
     const str = parseInt(build.str.base || 0) + parseInt(build.str.bonus || 0)
     const dexDiff = getDiffFromClosestWeapon(build.item, build.level, 0, parseInt(build.dex.base || 0), 0).dex
-    console.log(dexDiff)
     
     return (
         <div className="card card-compact bg-primary text-primary-content p-2 max-md:p-1">

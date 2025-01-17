@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import calculationsApi from '../api/calculationsApi'
 import { WEAPON_TYPES } from '../constants'
 
-const DebugCard = ({ build, version = 'v2' }) => {
+const DebugCard = ({ build, version = 'v3' }) => {
 
     const { calcBaseDmg, getGlassCannonPercent, types } = useCallback(() => calculationsApi(version), [version])(version)
     const weaponType = WEAPON_TYPES[build.item?.item_type]

@@ -5,7 +5,7 @@ import { magicOptFromId } from "../utils"
 import MagicOptsDrawer from "./MagicOptsDrawer"
 import { v4 } from "uuid"
 
-const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, version = 'v2' }) => {
+const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, version = 'v3' }) => {
 
 
     const { getMagicDmg, getPhysDmg } = useMemo(() => calculationsApi(version), [version])
@@ -55,7 +55,7 @@ const ItemCard = ({ itemKey, item, enchantLevel, magicOpts = [], handleChange, v
                     <span className="md:hidden">Atk. Spd</span>
                     <span>{item.item_attack_speed}</span>
 
-                    {item.item_magic_att_1 && <div className="col-span-2 flex flex-col text-success pt-2">
+                    {item.item_magic_att_1 > -1 && <div className="col-span-2 flex flex-col text-success pt-2">
                         {[1, 2, 3, 4, 5, 6]
                             .filter(i => !!item[MAGIC_OPTS_TMPL[0].replace('[i]', i)])
                             .map(i => {

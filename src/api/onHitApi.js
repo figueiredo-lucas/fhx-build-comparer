@@ -65,7 +65,6 @@ const onHitApi = (version) => {
             return Math.min(crit.limit, (baseValue * crit.races[race]) / 100)
         if (version === 'v3')
             gcGrowth = getGlassCannonPercent(crit.glassCannon, dexDiff)
-        console.log(gcGrowth)
         return Math.min(crit.limit, (baseValue * crit.races[race] + crit.base + gcGrowth) / 100)
     }
 

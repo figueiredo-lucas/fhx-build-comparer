@@ -27,7 +27,7 @@ const CharDataCard = ({ build, handleChange }) => {
             <div className="collapse-title leading-7">
                 {buildCharacterDataName()}
             </div>
-            <div className="collapse-content p-0">
+            <div className="collapse-content !p-0">
 
                 <div className="grid grid-cols-2 gap-2">
                     <label className="form-control">
@@ -58,54 +58,72 @@ const CharDataCard = ({ build, handleChange }) => {
                 </label>
 
                 {HAS_MASTERY.includes(parseInt(build.charClass || -1)) &&
-                    <div className="grid grid-cols-2 gap-2">
-                        <label className="form-control">
+                    <div className="grid grid-cols-1 gap-2">
+                        <label className="form-control w-full">
                             <div className="label">
-                                <span className="label-text">Mastery</span>
+                                <span className="label-text">Masteries</span>
                             </div>
-                            <select className="select select-sm select-bordered" value={build.mastery} onChange={e => handleChange('mastery', e.target.value)}>
+                            <div className="flex flex-col gap-2">
+                                {masteriesFromCharClass(build.charClass).map((mastery, idx) =>
+                                    <div key={mastery.id} className="grid grid-cols-4 join w-full">
+                                        <span className="col-span-3 input input-bordered bg-base-300 input-xs text-left px-2 join-item">{mastery.name}</span>
+                                        <input
+                                            type="text"
+                                            className="input input-bordered input-xs join-item"
+                                            onChange={(e) => handleChange(`masteries[${idx}]`, e.target.value)}
+                                            value={build.masteries[idx] || ''}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            {/* <select className="select select-sm select-bordered" value={build.mastery} onChange={e => handleChange('mastery', e.target.value)}>
                                 <option disabled value="">Pick one</option>
                                 {masteriesFromCharClass(build.charClass).map(mastery => <option key={mastery.id} value={mastery.id}>{mastery.name}</option>)}
-                            </select>
+                            </select> */}
                         </label>
-                        <label className="form-control">
+                        {/* <label className="form-control">
                             <div className="label">
                                 <span className="label-text">Mastery Level</span>
                             </div>
                             <input type="text" className="input input-sm input-bordered" onChange={e => handleChange('masteryLevel', e.target.value)} value={build.masteryLevel} />
-                        </label>
+                        </label> */}
                     </div>
                 }
+                <div className="grid grid-cols-2 gap-2">
 
-                <label className="form-control">
-                    <div className="label">
-                        <span className="label-text">Strength</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        <input type="text" className="input input-sm input-bordered" placeholder="Base STR" onChange={e => handleChange('str.base', e.target.value)} value={build.str.base} />
-                        <input type="text" className="input input-sm input-bordered" placeholder="Bonus STR" onChange={e => handleChange('str.bonus', e.target.value)} value={build.str.bonus} />
-                    </div>
-                </label>
+                    <label className="form-control">
+                        <div className="label">
+                            <span className="label-text">Vitality</span>
+                        </div>
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base VIT" onChange={e => handleChange('vit.base', e.target.value)} value={build.vit.base} />
+                    </label>
 
-                <label className="form-control">
-                    <div className="label">
-                        <span className="label-text">Dexterity</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <label className="form-control">
+                        <div className="label">
+                            <span className="label-text">Dexterity</span>
+                        </div>
                         <input type="text" className="input input-sm input-bordered" placeholder="Base DEX" onChange={e => handleChange('dex.base', e.target.value)} value={build.dex.base} />
-                        <input type="text" className="input input-sm input-bordered" placeholder="Bonus DEX" onChange={e => handleChange('dex.bonus', e.target.value)} value={build.dex.bonus} />
-                    </div>
-                </label>
+                    </label>
 
-                <label className="form-control">
-                    <div className="label">
-                        <span className="label-text">Intelligence</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+
+                    <label className="form-control">
+                        <div className="label">
+                            <span className="label-text">Intelligence</span>
+                        </div>
                         <input type="text" className="input input-sm input-bordered" placeholder="Base INT" onChange={e => handleChange('int.base', e.target.value)} value={build.int.base} />
-                        <input type="text" className="input input-sm input-bordered" placeholder="Bonus INT" onChange={e => handleChange('int.bonus', e.target.value)} value={build.int.bonus} />
-                    </div>
-                </label>
+                    </label>
+
+                    <label className="form-control">
+                        <div className="label">
+                            <span className="label-text">Strength</span>
+                        </div>
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base STR" onChange={e => handleChange('str.base', e.target.value)} value={build.str.base} />
+                    </label>
+
+                </div>
 
             </div>
         </div>

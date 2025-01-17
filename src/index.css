@@ -53,3 +53,75 @@
 .item-card:has(.bottom-drawer-toggle:checked) {
     @apply max-md:min-h-[228px] min-h-[400px] delay-0; /* must be 400px when there are all magic opts */
 }
+
+.set-builder-overlay {
+    @apply fixed flex justify-center items-center w-screen h-screen top-0 left-0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, .2);
+    padding-bottom: 30vh;
+}
+
+.modal-header {
+    @apply p-2 bg-base-200 rounded-t-2xl;
+}
+
+.modal-body {
+    @apply flex flex-col gap-2 p-8 pt-4;
+}
+
+.set-builder-modal {
+    @apply rounded rounded-2xl bg-base-300 flex flex-col shadow relative;
+
+    .item-slot {
+        @apply bg-base-100 rounded border border-white/10;
+
+        &:not(.no-effect) {
+            @apply hover:bg-white/10 transition-all cursor-pointer;
+        }
+
+        &.slot-square-sm {
+            @apply h-10 w-10;
+        }
+
+        &.slot-square-md {
+            @apply h-20 w-20;
+        }
+
+        &.slot-rect-sm {
+            @apply h-[7.5rem] w-20;
+        }
+
+        &.slot-rect-md {
+            @apply h-40 w-20;
+        }
+    }
+}
+
+.item-selection-overlay {
+    @apply absolute flex justify-center items-center w-full h-full top-0 left-0 rounded rounded-2xl;
+    /* background-color: rgba(255, 255, 255, .15); */
+}
+
+.item-selection-modal {
+    @apply absolute rounded rounded-2xl bg-base-300 flex flex-col shadow overflow-hidden w-full h-full;
+}
+
+.bg-image {
+    background-image: var(--imagesrc);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.item-tooltip {
+    @apply absolute bg-slate-800/85 hidden border border-white/20
+        shadow-lg shadow-slate-400/5 p-4 rounded top-[calc(100%+2px)] left-0 w-64 pointer-events-none;
+
+    .tooltip-title {
+        @apply font-bold text-[12px] pb-2;
+    }
+}
+
+.item-slot:hover .item-tooltip {
+    @apply block relative;
+}

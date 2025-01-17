@@ -58,6 +58,7 @@ const calculationsApi = (version) => {
 
     const getUserMagicOpts = (magicOpts, filter) =>
         magicOpts
+            .filter(mo => mo?.name)
             .map(mo => {
                 const mOpt = magicOptFromName(mo.name)
                 if (mOpt)
@@ -70,10 +71,10 @@ const calculationsApi = (version) => {
         const magicOpts = getItemMagicOpts(item, filter)
         const userMagicOpts = getUserMagicOpts(itemMagicOpts, filter)
 
-        const flat = !!item.item_magic_att_1
+        const flat = item.item_magic_att_1 > 0
             ? magicOpts.find(mo => mo.id === filter[0])?.value || 0
             : userMagicOpts.find(mo => mo.id === filter[0])?.value || 0
-        const percent = !!item.item_magic_att_1
+        const percent = item.item_magic_att_1 > 0
             ? (magicOpts.find(mo => mo.id === filter[1])?.value || 0) / 100
             : (userMagicOpts.find(mo => mo.id === filter[1])?.value || 0) / 100
 

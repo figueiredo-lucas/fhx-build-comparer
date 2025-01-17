@@ -1,42 +1,118 @@
 [
     {
-        "//id_magic_opt": 101,
+		"id_magic_opt" : 1,
+		"display_name" : "Vitality [R]"
+	},
+	{
+		"id_magic_opt" : 2,
+		"display_name" : "Intelligence [R]"
+	},
+	{
+		"id_magic_opt" : 3,
+		"display_name" : "Strength [R]"
+	},
+	{
+		"id_magic_opt" : 4,
+		"display_name" : "Dexterity [R]"
+	},
+	{
+		"id_magic_opt" : 5,
+		"display_name" : "Maximum Health [R]"
+	},
+	{
+		"id_magic_opt" : 6,
+		"display_name" : "Maximum Mana [R]"
+	},
+	{
+		"id_magic_opt" : 7,
+		"display_name" : "Maximum Stamina [R]"
+	},
+	{
+		"id_magic_opt" : 8,
+		"display_name" : "Health Regeneration [R]"
+	},
+	{
+		"id_magic_opt" : 9,
+		"display_name" : "Mana Regeneration [R]"
+	},
+	{
+		"id_magic_opt" : 10,
+		"display_name" : "Stamina Regeneration [R]"
+	},
+	{
+		"id_magic_opt" : 11,
+		"display_name" : "Physical Damage [R]"
+	},
+	{
+		"id_magic_opt" : 12,
+		"display_name" : "Physical Defense [R]"
+	},
+	{
+		"id_magic_opt" : 13,
+		"display_name" : "Magical Damage [R]"
+	},
+	{
+		"id_magic_opt" : 14,
+		"display_name" : "Magical Defense [R]"
+	},
+	{
+		"id_magic_opt" : 15,
+		"display_name" : "Attack Speed [R]"
+	},
+	{
+		"id_magic_opt" : 16,
+		"display_name" : "Evade Chance [R]"
+	},
+	{
+		"id_magic_opt" : 17,
+		"display_name" : "Resistance to Attack Magic [R]"
+	},
+	{
+		"id_magic_opt" : 18,
+		"display_name" : "Resistance to Curse Magic [R]"
+	},
+	{
+		"id_magic_opt" : 19,
+		"display_name" : "Critical Chance [R]"
+	},
+    {
+        "id_magic_opt": 101,
         "display_name": "Vitality [R]"
     },
     {
-        "//id_magic_opt": 102,
+        "id_magic_opt": 102,
         "display_name": "Intelligence [R]"
     },
     {
-        "//id_magic_opt": 103,
+        "id_magic_opt": 103,
         "display_name": "Strength [R]"
     },
     {
-        "//id_magic_opt": 104,
+        "id_magic_opt": 104,
         "display_name": "Dexterity [R]"
     },
     {
-        "//id_magic_opt": 105,
+        "id_magic_opt": 105,
         "display_name": "Maximum Health [R]"
     },
     {
-        "//id_magic_opt": 106,
+        "id_magic_opt": 106,
         "display_name": "Maximum Mana [R]"
     },
     {
-        "//id_magic_opt": 107,
+        "id_magic_opt": 107,
         "display_name": "Maximum Stamina [R]"
     },
     {
-        "//id_magic_opt": 108,
+        "id_magic_opt": 108,
         "display_name": "Health Regeneration [R]"
     },
     {
-        "//id_magic_opt": 109,
+        "id_magic_opt": 109,
         "display_name": "Mana Regeneration [R]"
     },
     {
-        "//id_magic_opt": 110,
+        "id_magic_opt": 110,
         "display_name": "Stamina Regeneration [R]"
     },
     {
@@ -44,7 +120,7 @@
         "display_name": "Physical Damage [R]"
     },
     {
-        "//id_magic_opt": 112,
+        "id_magic_opt": 112,
         "display_name": "Physical Defense [R]"
     },
     {
@@ -52,43 +128,43 @@
         "display_name": "Magical Damage [R]"
     },
     {
-        "//id_magic_opt": 114,
+        "id_magic_opt": 114,
         "display_name": "Magical Defense [R]"
     },
     {
-        "//id_magic_opt": 115,
+        "id_magic_opt": 115,
         "display_name": "Resistance to Attack Magic [R]"
     },
     {
-        "//id_magic_opt": 116,
+        "id_magic_opt": 116,
         "display_name": "Resistance to Curse Magic [R]"
     },
     {
-        "//id_magic_opt": 117,
+        "id_magic_opt": 117,
         "display_name": "Critical Chance [R]%"
     },
     {
-        "//id_magic_opt": 201,
+        "id_magic_opt": 201,
         "display_name": "Health Regeneration [R]%"
     },
     {
-        "//id_magic_opt": 202,
+        "id_magic_opt": 202,
         "display_name": "Mana Regeneration [R]%"
     },
     {
-        "//id_magic_opt": 203,
+        "id_magic_opt": 203,
         "display_name": "Stamina Regeneration [R]%"
     },
     {
-        "//id_magic_opt": 301,
+        "id_magic_opt": 301,
         "display_name": "Maximum Health [R]%"
     },
     {
-        "//id_magic_opt": 302,
+        "id_magic_opt": 302,
         "display_name": "Maximum Mana [R]%"
     },
     {
-        "//id_magic_opt": 303,
+        "id_magic_opt": 303,
         "display_name": "Maximum Stamina [R]%"
     },
     {
@@ -96,7 +172,7 @@
         "display_name": "Physical Damage [R]%"
     },
     {
-        "//id_magic_opt": 305,
+        "id_magic_opt": 305,
         "display_name": "Physical Defense [R]%"
     },
     {
@@ -104,27 +180,27 @@
         "display_name": "Magical Damage [R]%"
     },
     {
-        "//id_magic_opt": 307,
+        "id_magic_opt": 307,
         "display_name": "Magical Defense [R]%"
     },
     {
-        "//id_magic_opt": 401,
+        "id_magic_opt": 401,
         "display_name": "Movement Speed [R]"
     },
     {
-        "//id_magic_opt": 402,
+        "id_magic_opt": 402,
         "display_name": "Cast Speed [R]%"
     },
     {
-        "//id_magic_opt": 404,
+        "id_magic_opt": 404,
         "display_name": "Accuracy [R]%"
     },
     {
-        "//id_magic_opt": 405,
+        "id_magic_opt": 405,
         "display_name": "Evade Chance [R]%"
     },
     {
-        "//id_magic_opt": 501,
+        "id_magic_opt": 501,
         "display_name": "Movement Speed [R]%"
     }
 ]
