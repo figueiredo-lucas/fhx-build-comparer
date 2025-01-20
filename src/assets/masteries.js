@@ -1,4 +1,4 @@
-import { ITEM_TYPE } from "./itemTypes"
+import { ITEM_SLOT, ITEM_TYPE } from "./itemTypes"
 
 const masteries = [
     {
@@ -11,8 +11,10 @@ const masteries = [
         "level": 1,
         "max_level": 100,
         shouldApply: (build) => {
-            const validFirstItem = build.item && build.item.item_type === ITEM_TYPE.AXE
-            const validSecondItem = !build.secondaryItem || build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            const validFirstItem = mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.AXE
+            const validSecondItem = !offhand?.item || offhand?.item.item_type === ITEM_TYPE.SHIELD
 
             return validFirstItem && validSecondItem
         }
@@ -21,6 +23,7 @@ const masteries = [
         "id": 1,
         "charClass": 0,
         "name": "Defense Mastery",
+        "isDefensive": true,
         "value_min_n_1": 1.000000000000,
         "value_max_n_1": 1.000000000000,
         "diff_min_max_1": 1.000000000000,
@@ -38,8 +41,10 @@ const masteries = [
         "level": 10,
         "max_level": 80,
         shouldApply: (build) => {
-            const validFirstItem = build.item && [ITEM_TYPE.AXE, ITEM_TYPE.SWORD].includes(build.item.item_type)
-            const validSecondItem = build.secondaryItem && build.secondaryItem !== ITEM_TYPE.SHIELD
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            const validFirstItem = mainHand?.item && [ITEM_TYPE.AXE, ITEM_TYPE.SWORD].includes(mainHand?.item.item_type)
+            const validSecondItem = offhand?.item && offhand?.item !== ITEM_TYPE.SHIELD
 
             return validFirstItem && validSecondItem
         }
@@ -54,8 +59,10 @@ const masteries = [
         "level": 1,
         "max_level": 100,
         shouldApply: (build) => {
-            const validFirstItem = build.item && build.item.item_type === ITEM_TYPE.SWORD
-            const validSecondItem = !build.secondaryItem || build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            const validFirstItem = mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.SWORD
+            const validSecondItem = !offhand?.item || offhand?.item.item_type === ITEM_TYPE.SHIELD
 
             return validFirstItem && validSecondItem
         }
@@ -64,6 +71,7 @@ const masteries = [
         "id": 101,
         "charClass": 1,
         "name": "Defense Mastery",
+        "isDefensive": true,
         "value_min_n_1": 3.000000000000,
         "value_max_n_1": 3.000000000000,
         "diff_min_max_1": 1.000000000000,
@@ -75,12 +83,16 @@ const masteries = [
         "id": 106,
         "charClass": 1,
         "name": "Shield Mastery",
+        "isDefensive": true,
         "value_min_n_1": 3.000000000000,
         "value_max_n_1": 3.000000000000,
         "diff_min_max_1": 1.500000000000,
         "level": 10,
         "max_level": 100,
-        shouldApply: (build) => build.secondaryItem && build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+        shouldApply: (build) => {
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            return offhand?.item && offhand?.item.item_type === ITEM_TYPE.SHIELD
+        }
     },
     {
         "id": 200,
@@ -91,7 +103,12 @@ const masteries = [
         "diff_min_max_1": 0.80,
         "level": 1,
         "max_level": 100,
-        shouldApply: (build) => build.item && build.item.item_type === ITEM_TYPE.BOW
+        shouldApply: (build) => {
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            return mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.BOW ||
+                offhand?.item && offhand?.item.item_type === ITEM_TYPE.BOW
+        }
     },
     {
         "id": 400,
@@ -103,8 +120,10 @@ const masteries = [
         "level": 1,
         "max_level": 100,
         shouldApply: (build) => {
-            const validFirstItem = build.item && build.item.item_type === ITEM_TYPE.SWORD
-            const validSecondItem = !build.secondaryItem || build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            const validFirstItem = mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.SWORD
+            const validSecondItem = !offhand?.item || offhand?.item.item_type === ITEM_TYPE.SHIELD
 
             return validFirstItem && validSecondItem
         }
@@ -119,8 +138,10 @@ const masteries = [
         "level": 1,
         "max_level": 100,
         shouldApply: (build) => {
-            const validFirstItem = build.item && build.item.item_type === ITEM_TYPE.MACE
-            const validSecondItem = !build.secondaryItem || build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            const validFirstItem = mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.MACE
+            const validSecondItem = !offhand?.item || offhand?.item.item_type === ITEM_TYPE.SHIELD
 
             return validFirstItem && validSecondItem
         }
@@ -129,12 +150,16 @@ const masteries = [
         "id": 406,
         "charClass": 4,
         "name": "Shield Mastery",
+        "isDefensive": true,
         "value_min_n_1": 2.000000000000,
         "value_max_n_1": 2.000000000000,
         "diff_min_max_1": 1.500000000000,
         "level": 10,
         "max_level": 100,
-        shouldApply: (build) => build.secondaryItem && build.secondaryItem.item_type === ITEM_TYPE.SHIELD
+        shouldApply: (build) => {
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            return offhand?.item && offhand?.item.item_type === ITEM_TYPE.SHIELD
+        }
     },
     {
         "id": 900,
@@ -145,7 +170,12 @@ const masteries = [
         "diff_min_max_1": 0.65,
         "level": 1,
         "max_level": 100,
-        shouldApply: (build) => build.item && build.item.item_type === ITEM_TYPE.POLE
+        shouldApply: (build) => {
+            const mainHand = build.items[ITEM_SLOT.LEFT_HAND]
+            const offhand = build.items[ITEM_SLOT.RIGHT_HAND]
+            return mainHand?.item && mainHand?.item.item_type === ITEM_TYPE.POLE ||
+                offhand?.item && offhand?.item.item_type === ITEM_TYPE.POLE
+        }
     }
 ]
 

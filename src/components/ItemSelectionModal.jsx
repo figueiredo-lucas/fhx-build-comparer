@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NAME_SPLITTING_REGEX } from '../constants'
-import { itemFromId } from '../utils'
+import { itemFromId, magicOptFromName } from '../utils'
 import { isEnchantable, SIZE_BY_SLOT } from '../assets/itemTypes'
 import ItemData from './ItemData'
 
@@ -36,6 +36,10 @@ const ItemSelectionModal = ({ version = 'v3', item, enchantLevel, magicOpts = []
         const copy = [...selectedMagicOpts]
         copy[idx] = copy[idx] || {}
         copy[idx][key] = opt
+
+        if (key === 'name') {
+            copy[idx].id = magicOptFromName(opt)?.id_magic_opt
+        }
         setSelectedMagicOpts(copy)
     }
 
@@ -59,7 +63,7 @@ const ItemSelectionModal = ({ version = 'v3', item, enchantLevel, magicOpts = []
                             <span className="label-text text-xs">Enchant Level</span>
                         </div>
                         <input type="text" className="input input-xs input-bordered w-full"
-                            onChange={e => setSelectedEnchantLevel(e.target.value)} value={selectedEnchantLevel || 0} />
+                            onChange={e => setSelectedEnchantLevel(e.target.value)} value={selectedEnchantLevel || ''} />
                     </label>}
 
                     {selectionItem &&

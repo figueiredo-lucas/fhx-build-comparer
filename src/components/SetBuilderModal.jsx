@@ -16,11 +16,11 @@ const SetBuilderModal = ({ build, handleChange, setShowInventory }) => {
         setTimeout(() => {
             const oppositeSlot = itemSlot === ITEM_SLOT.LEFT_HAND ? ITEM_SLOT.RIGHT_HAND : ITEM_SLOT.LEFT_HAND
             
-            if (item.hand_type === ITEM_HAND_TYPE.TWO_HANDED) {
+            if (item?.hand_type === ITEM_HAND_TYPE.TWO_HANDED) {
                 
                 handleChange(`items[${oppositeSlot}]`, { item: null, enchantLevel: null, magicOpts: [] })
 
-            } else if (item.hand_type === ITEM_HAND_TYPE.ONE_HANDED) {
+            } else if (item?.hand_type === ITEM_HAND_TYPE.ONE_HANDED) {
 
                 const oppositeItem = build.items[oppositeSlot]
                 if (oppositeItem?.item && oppositeItem.item.hand_type === ITEM_HAND_TYPE.TWO_HANDED) {

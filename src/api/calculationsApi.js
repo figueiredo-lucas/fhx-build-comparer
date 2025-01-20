@@ -1,5 +1,6 @@
+import { ITEM_FUNC, ITEM_HAND_TYPE, ITEM_SLOT } from "../assets/itemTypes"
 import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, MAGIC_OPTS_TMPL, WEAPON_TYPES } from "../constants"
-import { calculateMasteryLevel, magicOptFromName } from "../utils"
+import { calculateMasteryLevel, getFlatAndPercentGrowth, getItemMagicOpts, getStatBonusByItems, getUserMagicOpts, hasEquippedWeapons, magicOptFromName } from "../utils"
 import versions from '../versions'
 import { getDiffFromClosestWeapon } from "./utils"
 
@@ -47,40 +48,6 @@ const calculationsApi = (version) => {
         return Math.floor(dmg * raceClass[race].factor * raceClass[race].classes[charClass].magic)
     }
 
-    const getItemMagicOpts = (item, filter) =>
-        [1, 2, 3, 4, 5, 6]
-            .map(i => {
-                const id = item[MAGIC_OPTS_TMPL[0].replace('[i]', i)]
-                const value = item[MAGIC_OPTS_TMPL[1].replace('[i]', i)]
-                return { id, value }
-            })
-            .filter(({ id }) => !!id && filter.includes(id))
-
-    const getUserMagicOpts = (magicOpts, filter) =>
-        magicOpts
-            .filter(mo => mo?.name)
-            .map(mo => {
-                const mOpt = magicOptFromName(mo.name)
-                if (mOpt)
-                    return { id: mOpt.id_magic_opt, value: parseInt(mo.value) }
-                return { id: null }
-            })
-            .filter(({ id }) => !!id && filter.includes(id))
-        
-    const getFlatAndPercentGrowth = (item, itemMagicOpts, filter) => {
-        const magicOpts = getItemMagicOpts(item, filter)
-        const userMagicOpts = getUserMagicOpts(itemMagicOpts, filter)
-
-        const flat = item.item_magic_att_1 > 0
-            ? magicOpts.find(mo => mo.id === filter[0])?.value || 0
-            : userMagicOpts.find(mo => mo.id === filter[0])?.value || 0
-        const percent = item.item_magic_att_1 > 0
-            ? (magicOpts.find(mo => mo.id === filter[1])?.value || 0) / 100
-            : (userMagicOpts.find(mo => mo.id === filter[1])?.value || 0) / 100
-
-        return { flat, percent }
-    }
-
     const getPhysDmg = (item, enchantLevel, itemMagicOpts = []) => {
         const enchant = enchantLevel * 0.05
         const min = item.item_offence_power_min
@@ -109,25 +76,31 @@ const calculationsApi = (version) => {
     }
 
     const getStatPhysDmg = (build) => {
-        if (!build.item || !build.race || !build.charClass || !build.level
-            || !build.str.base || !build.dex.base
+        
+        const leftHand = build.items[ITEM_SLOT.LEFT_HAND]
+        const rightHand = build.items[ITEM_SLOT.RIGHT_HAND]
+
+        if (!leftHand?.item || !build.race || !build.charClass || !build.level
+            || !build.str || !build.dex
         ) {
             const noWepDmg = calcBasePhysDmgNoWeapon(build.level)
             return { min: noWepDmg, max: noWepDmg }
         }
 
-        const weaponType = WEAPON_TYPES[build.item.item_type] === 'magic' ? 'melee' : WEAPON_TYPES[build.item.item_type]
-        const weaponDmg = getPhysDmg(build.item, build.enchantLevel, build.itemMagicOpts)
-        if (build.charClass === '0' && build.secondaryItem) {
-            const secondaryWeaponDmg = getPhysDmg(build.secondaryItem, build.secondaryEnchantLevel, build.secondaryItemMagicOpts)
+        const weaponType = WEAPON_TYPES[leftHand.item.item_type] === 'magic' ? 'melee' : WEAPON_TYPES[leftHand.item.item_type]
+        const weaponDmg = getPhysDmg(leftHand.item, leftHand.enchantLevel, leftHand.magicOpts)
+        if (build.charClass === '0' && rightHand?.item) {
+            const secondaryWeaponDmg = getPhysDmg(rightHand.item, rightHand.enchantLevel, rightHand.magicOpts)
             weaponDmg.min += secondaryWeaponDmg.min
             weaponDmg.max += secondaryWeaponDmg.max
         }
 
-        const statDiff = getDiffFromClosestWeapon(build.item, build.level, parseInt(build.str.base), parseInt(build.dex.base), 0)
+        const statDiff = getDiffFromClosestWeapon(leftHand.item, build.level, parseInt(build.str), parseInt(build.dex), 0)
+
+        const bonuses = getStatBonusByItems(build)
 
         const baseDmg = calcBasePhysDmg(build.level, weaponType, build.race, build.charClass,
-            parseInt(build.str.base) + parseInt(build.str.bonus || 0), parseInt(build.dex.base) + parseInt(build.dex.bonus || 0), statDiff)
+            parseInt(build.str) + parseInt(bonuses.str || 0), parseInt(build.dex) + parseInt(bonuses.dex || 0), statDiff)
 
         const mastery = calculateMasteryLevel(build)
 
@@ -138,15 +111,33 @@ const calculationsApi = (version) => {
     }
 
     const getStatMagicDmg = (build) => {
-        if (!build.item || !build.race || !build.charClass
-            || !build.level || !build.int.base || WEAPON_TYPES[build.item.item_type] !== 'magic') return { min: 0, max: 0 }
+        const leftHand = build.items[ITEM_SLOT.LEFT_HAND]
+        const rightHand = build.items[ITEM_SLOT.RIGHT_HAND]
 
-        const weaponDmg = getMagicDmg(build.item, build.enchantLevel, build.itemMagicOpts)
+        if (!build.race || !build.charClass
+            || !build.level || !build.int) return { min: 0, max: 0 }
 
-        const statDiff = getDiffFromClosestWeapon(build.item, build.level, 0, 0, parseInt(build.int.base))
+            
+        if (leftHand?.item && WEAPON_TYPES[leftHand.item.item_type] !== 'magic') return { min: 0, max: 0 }
+            
+        let handItem = leftHand?.item
+
+        if (rightHand?.item && WEAPON_TYPES[rightHand.item.item_type] && rightHand.item.hand_type === ITEM_HAND_TYPE.TWO_HANDED)
+            handItem = rightHand.item
+
+        if (!handItem) return { min: 0, max: 0 }
+
+        
+        const weaponDmg = getMagicDmg(leftHand.item, leftHand.enchantLevel, leftHand.magicOpts)
+        
+        const statDiff = getDiffFromClosestWeapon(build.item, build.level, 0, 0, parseInt(build.int))
+
+        console.log(weaponDmg, statDiff)
+
+        const bonuses = getStatBonusByItems(build)
         
         const baseDmg = calcBaseMagicDmg(build.level, build.race, build.charClass,
-            parseInt(build.int.base) + parseInt(build.int.bonus || 0), statDiff)
+            parseInt(build.int) + parseInt(bonuses.int || 0), statDiff)
 
         return {
             min: Math.floor(baseDmg + weaponDmg.min),

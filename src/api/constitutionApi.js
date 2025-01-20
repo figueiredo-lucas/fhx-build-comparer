@@ -1,3 +1,6 @@
+import { ITEM_TYPE } from '../assets/itemTypes'
+import { MAGIC_OPTS_DEF_MAGIC, MAGIC_OPTS_DEF_PHYS } from '../constants'
+import { getFlatAndPercentGrowth, getStatBonusByItems, getStatByItems } from '../utils'
 import versions from '../versions'
 
 const constitutionApi = (version) => {
@@ -53,9 +56,15 @@ const constitutionApi = (version) => {
     const _regen = (level, stat, type) =>
         stat * Math.pow(type.growth, level) + type.base
 
-    const calculateHpRegen = (level, stat) => Math.floor(_regen(level, stat, regeneration.hp))
-    const calculateMpRegen = (level, stat) => Math.floor(_regen(level, stat, regeneration.mp))
-    const calculateSpRegen = (level, stat) => Math.floor(_regen(level, stat, regeneration.sp))
+    const _regenWithItem = (build, filter, type) => {
+        const { flat, percent } = getStatByItems(build, filter)
+        const regen = _regen(parseInt(build.level), build.vit || 0, type)
+        return Math.floor((regen + flat) * (1 + percent));
+    }
+
+    const calculateHpRegen = (build) => _regenWithItem(build, [108, 201], regeneration.hp)
+    const calculateMpRegen = (build) => _regenWithItem(build, [109, 202], regeneration.mp)
+    const calculateSpRegen = (build) => _regenWithItem(build, [110, 203], regeneration.sp)
 
     const _valuePerPoint = (level, defSource) =>
         Math.pow(defSource.base, Math.pow(defSource.expFactor, (defSource.factor * level)))
@@ -68,15 +77,67 @@ const constitutionApi = (version) => {
 
     const calcBasePhysDef = (build) => {
         if (!build.level || !build.race || !build.charClass) return 0
-        const stat = parseInt(build.str.base || 0) + parseInt(build.str.bonus || 0)
+        const bonuses = getStatBonusByItems(build)
+        const stat = parseInt(build.str || 0) + parseInt(bonuses.str || 0)
         return Math.max(0, Math.floor(_getDef(parseInt(build.level), build.race, build.charClass, stat, physDef)))
     }
 
     const calcBaseMagicDef = (build) => {
         if (!build.level || !build.race || !build.charClass) return 0
-        const stat = parseInt(build.int.base || 0) + parseInt(build.int.bonus || 0)
+        const bonuses = getStatBonusByItems(build)
+        const stat = parseInt(build.int || 0) + parseInt(bonuses.int || 0)
         return Math.max(0, Math.floor(_getDef(parseInt(build.level), build.race, build.charClass, stat, magicDef)))
     }
+
+    const getItemPhysDef = (item, enchantLevel, magicOpts) => {
+        if (!item || item.item_defense_power < 0) return 0
+
+        const def = item.item_defense_power
+
+        const enchant = enchantLevel * (item.item_type === ITEM_TYPE.SHIELD ? 20 : 10)
+        
+        const { flat, percent } = getFlatAndPercentGrowth(item, magicOpts, MAGIC_OPTS_DEF_PHYS)
+        
+        return Math.floor(def + flat + enchant + (def * percent))
+    }
+
+    const getItemMagicDef = (item, enchantLevel, magicOpts) => {
+        if (!item || item.item_magic_defence < 0) return 0
+
+        const def = item.item_magic_defence
+
+        const enchant = enchantLevel * (item.item_type === ITEM_TYPE.SHIELD ? 20 : 10)
+        
+        const { flat, percent } = getFlatAndPercentGrowth(item, magicOpts, MAGIC_OPTS_DEF_MAGIC)
+        
+        return Math.floor(def + flat + enchant + (def * percent))
+    }
+
+    const calcFullHp = build => {
+        const { flat, percent } = getStatByItems(build, [105, 301])
+        const bonuses = getStatBonusByItems(build)
+        const base = calculateHp(build, build.vit)
+        const bonus = calculateHp(build, bonuses.vit, false)
+        return Math.floor(base + (base * percent) + flat + bonus)
+    }
+
+    const calcFullMp = build => {
+        const { flat, percent } = getStatByItems(build, [106, 302])
+        const bonuses = getStatBonusByItems(build)
+        const base = calculateMp(build, build.int)
+        const bonus = calculateMp(build, bonuses.int, false)
+        return Math.floor(base + (base * percent) + flat + bonus)
+    }
+
+    const calcFullSp = build => {
+        const { flat, percent } = getStatByItems(build, [107, 303])
+        const bonuses = getStatBonusByItems(build)
+        const base = calculateSp(build, build.vit)
+        const bonus = calculateSp(build, bonuses.vit, false)
+        return Math.floor(base + (base * percent) + flat + bonus)
+    }
+
+
 
     return {
         calculateHp,
@@ -87,6 +148,11 @@ const constitutionApi = (version) => {
         calculateSpRegen,
         calcBasePhysDef,
         calcBaseMagicDef,
+        getItemPhysDef,
+        getItemMagicDef,
+        calcFullHp,
+        calcFullMp,
+        calcFullSp,
     }
 }
 

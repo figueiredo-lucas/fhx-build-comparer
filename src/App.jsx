@@ -16,31 +16,11 @@ const createEmptyBuild = () => ({
     charClass: '',
     masteries: [],
     level: 1,
-    vit: {
-        base: '',
-        bonus: '',
-    },
-    str: {
-        base: '',
-        bonus: '',
-    },
-    dex: {
-        base: '',
-        bonus: '',
-    },
-    int: {
-        base: '',
-        bonus: '',
-    },
+    vit: '',
+    str: '',
+    dex: '',
+    int: '',
     items: {},
-    item: null,
-    itemName: '',
-    itemMagicOpts: [],
-    secondaryItem: null,
-    secondaryItemName: '',
-    secondaryItemMagicOpts: [],
-    enchantLevel: 0,
-    secondaryEnchantLevel: 0
 })
 
 function App() {

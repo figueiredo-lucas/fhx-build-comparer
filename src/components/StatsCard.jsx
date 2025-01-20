@@ -1,25 +1,29 @@
 import { useMemo } from "react"
 import calculationsApi from "../api/calculationsApi"
 import constitutionApi from "../api/constitutionApi"
+import { calculateMasteryLevel, getDefenseByItems, getStatBonusByItems } from "../utils"
 
 const StatsCard = ({ build, version = 'v3' }) => {
 
     const { getStatPhysDmg, getStatMagicDmg } = useMemo(() => calculationsApi(version), [version])
     const {
-        calculateHp,
-        calculateMp,
-        calculateSp,
+        calcFullHp,
+        calcFullMp,
+        calcFullSp,
         calcBasePhysDef,
         calcBaseMagicDef
     } = useMemo(() => constitutionApi(version), [version])
 
     const physDmg = getStatPhysDmg(build)
     const magicDmg = getStatMagicDmg(build)
-    const hp = calculateHp(build, build.vit.base) + calculateHp(build, build.vit.bonus, false)
-    const mp = calculateMp(build, build.int.base) + calculateMp(build, build.int.bonus, false)
-    const sp = calculateSp(build, build.vit.base) + calculateSp(build, build.vit.bonus, false)
-    const physDef = calcBasePhysDef(build)
-    const magicDef = calcBaseMagicDef(build)
+    const bonuses = getStatBonusByItems(build)
+    const hp = calcFullHp(build)
+    const mp = calcFullMp(build)
+    const sp = calcFullSp(build)
+    const defByItems = getDefenseByItems(build)
+    const defMastery = calculateMasteryLevel(build, true)
+    const physDef = calcBasePhysDef(build) + defByItems.physDef + defMastery
+    const magicDef = calcBaseMagicDef(build) + defByItems.magicDef
 
     return (
         <div className="card card-compact bg-info p-2 max-md:p-1">
@@ -43,19 +47,19 @@ const StatsCard = ({ build, version = 'v3' }) => {
 
                 <div className="flex rounded border border-neutral px-2 max-md:px-[2px]">
                     <span className="flex-1 text-left">VIT</span>
-                    <span className="flex-1">{build.vit.base}{build.vit.bonus > 0 && `+${build.vit.bonus}`}</span>
+                    <span className="flex-1">{build.vit}{bonuses.vit > 0 && `+${bonuses.vit}`}</span>
                 </div>
                 <div className="flex border border-neutral rounded px-2 max-md:px-[2px]">
                     <span className="flex-1 text-left">DEX</span>
-                    <span className="flex-1">{build.dex.base}{build.dex.bonus > 0 && `+${build.dex.bonus}`}</span>
+                    <span className="flex-1">{build.dex}{bonuses.dex > 0 && `+${bonuses.dex}`}</span>
                 </div>
                 <div className="flex border border-neutral rounded px-2 max-md:px-[2px]">
                     <span className="flex-1 text-left">INT</span>
-                    <span className="flex-1">{build.int.base}{build.int.bonus > 0 && `+${build.int.bonus}`}</span>
+                    <span className="flex-1">{build.int}{bonuses.int > 0 && `+${bonuses.int}`}</span>
                 </div>
                 <div className="flex border border-neutral rounded px-2 max-md:px-[2px]">
                     <span className="flex-1 text-left">STR</span>
-                    <span className="flex-1">{build.str.base}{build.str.bonus > 0 && `+${build.str.bonus}`}</span>
+                    <span className="flex-1">{build.str}{bonuses.str > 0 && `+${bonuses.str}`}</span>
                 </div>
                 
                 <div className="col-span-2 grid grid-cols-2 gap-1 border border-neutral rounded py-1">

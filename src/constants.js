@@ -24,6 +24,17 @@ export const MAGIC_OPTS_TMPL = ['item_magic_att_[i]', 'item_magic_att_[i]_result
 
 export const MAGIC_OPTS_PYHS = [111, 304]
 export const MAGIC_OPTS_MAGIC = [113, 306]
+export const MAGIC_OPTS_STAT_KEYS = [101, 102, 103, 104]
+export const MAGIC_OPTS_DEF_KEYS = [112, 114, 305, 307]
+export const MAGIC_OPTS_DEF_PHYS = [112, 305]
+export const MAGIC_OPTS_DEF_MAGIC = [114, 307]
+
+export const MAGIC_OPTS_STATS = {
+    101: 'vit',
+    102: 'int',
+    103: 'str',
+    104: 'dex',
+}
 
 export const MAX_MAGIC_OPTS = 2
 

@@ -12,7 +12,7 @@ const BuildCard = ({ build, index, handleChange, removeBuild, duplicateBuild }) 
     const [showInventory, setShowInventory] = useState(false)
 
     return (
-        <div className="card card-compact shadow-xl bg-base-300 p-0 px-2">
+        <div className="card card-compact shadow-xl bg-base-300 p-0 px-2 max-w-[600px]">
             {showInventory && <SetBuilderModal build={build} handleChange={handleChange} setShowInventory={setShowInventory} />}
 
             <div className="card-body max-md:!px-2">

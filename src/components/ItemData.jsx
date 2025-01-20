@@ -1,13 +1,18 @@
 import React, { useMemo } from 'react'
 import calculationsApi from '../api/calculationsApi'
 import { MAGIC_OPTS_TMPL } from '../constants'
-import { magicOptFromId } from '../utils'
+import { getDefenseByItems, magicOptFromId } from '../utils'
+import constitutionApi from '../api/constitutionApi'
 
 const ItemData = ({ item, enchantLevel = 0, magicOpts = [], version, className = '', shrink }) => {
 
     const { getMagicDmg, getPhysDmg } = useMemo(() => calculationsApi(version), [version])
+    const { getItemPhysDef, getItemMagicDef } = useMemo(() => constitutionApi(version), [version])
+
     const itemPhysDmg = getPhysDmg(item, enchantLevel, magicOpts)
     const itemMagicDmg = getMagicDmg(item, enchantLevel, magicOpts)
+    const itemPhysDef = getItemPhysDef(item, enchantLevel, magicOpts)
+    const itemMagicDef = getItemMagicDef(item, enchantLevel, magicOpts)
     
     return (
         <div className={`grid grid-cols-2 gap-1 text-xs ${className}`}>
@@ -55,19 +60,25 @@ const ItemData = ({ item, enchantLevel = 0, magicOpts = [], version, className =
             {item.item_defense_power > 0 && <>
                 {!shrink && <span>Physical Defense</span>}
                 {shrink && <span>Phys. Def.</span>}
-                <span>{item.item_defense_power}</span>
+                <span>{itemPhysDef}</span>
             </>}
 
             {item.item_magic_defence > 0 && <>
                 {!shrink && <span>Magic Defense</span>}
                 {shrink && <span>Mag. Def.</span>}
-                <span>{item.item_magic_defence}</span>
+                <span>{itemMagicDef}</span>
             </>}
 
             {item.item_block_rate > 0 && <>
                 {!shrink && <span>Block Chance</span>}
                 {shrink && <span>Blk. Chance</span>}
                 <span>{item.item_block_rate}%</span>
+            </>}
+            
+            {item.item_dodge_reduce > 0 && <>
+                {!shrink && <span>Evasion Decrement</span>}
+                {shrink && <span>Evade Decr.</span>}
+                <span>{item.item_dodge_reduce}%</span>
             </>}
 
             {item.item_mana_bonus > 0 && <>

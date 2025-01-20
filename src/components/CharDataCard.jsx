@@ -70,8 +70,8 @@ const CharDataCard = ({ build, handleChange }) => {
                                         <input
                                             type="text"
                                             className="input input-bordered input-xs join-item"
-                                            onChange={(e) => handleChange(`masteries[${idx}]`, e.target.value)}
-                                            value={build.masteries[idx] || ''}
+                                            onChange={(e) => handleChange(`masteries[${idx}]`, { id: mastery.id, level: e.target.value })}
+                                            value={build.masteries[idx]?.level || ''}
                                         />
                                     </div>
                                 )}
@@ -95,14 +95,14 @@ const CharDataCard = ({ build, handleChange }) => {
                         <div className="label">
                             <span className="label-text">Vitality</span>
                         </div>
-                        <input type="text" className="input input-sm input-bordered" placeholder="Base VIT" onChange={e => handleChange('vit.base', e.target.value)} value={build.vit.base} />
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base VIT" onChange={e => handleChange('vit', e.target.value)} value={build.vit} />
                     </label>
 
                     <label className="form-control">
                         <div className="label">
                             <span className="label-text">Dexterity</span>
                         </div>
-                        <input type="text" className="input input-sm input-bordered" placeholder="Base DEX" onChange={e => handleChange('dex.base', e.target.value)} value={build.dex.base} />
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base DEX" onChange={e => handleChange('dex', e.target.value)} value={build.dex} />
                     </label>
 
                 </div>
@@ -113,14 +113,14 @@ const CharDataCard = ({ build, handleChange }) => {
                         <div className="label">
                             <span className="label-text">Intelligence</span>
                         </div>
-                        <input type="text" className="input input-sm input-bordered" placeholder="Base INT" onChange={e => handleChange('int.base', e.target.value)} value={build.int.base} />
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base INT" onChange={e => handleChange('int', e.target.value)} value={build.int} />
                     </label>
 
                     <label className="form-control">
                         <div className="label">
                             <span className="label-text">Strength</span>
                         </div>
-                        <input type="text" className="input input-sm input-bordered" placeholder="Base STR" onChange={e => handleChange('str.base', e.target.value)} value={build.str.base} />
+                        <input type="text" className="input input-sm input-bordered" placeholder="Base STR" onChange={e => handleChange('str', e.target.value)} value={build.str} />
                     </label>
 
                 </div>
