@@ -6,10 +6,12 @@ npm run build
 git checkout gh-pages
 ## remove old assets
 rm -rf assets
+## remove old items
+rm -rf items
 ## copy new assets to root
 cp -r dist/assets assets
 ## copy item images
-cp -r dist/items items
+cp -r dist/items assets/items
 ## replaces index information because of leading /
 sed -i 's@/assets@assets@g' dist/index.html
 ## copies index to root

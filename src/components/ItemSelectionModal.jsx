@@ -69,7 +69,7 @@ const ItemSelectionModal = ({ version = 'v3', item, enchantLevel, magicOpts = []
                     {selectionItem &&
                         <div className="flex gap-4 items-start mt-2 flex-1">
                             <div className="flex flex-col justify-between">
-                                <div style={{ '--imagesrc': `url('/items/${selectionItem.item_icon}')` }}
+                                <div style={{ '--imagesrc': `url('items/${selectionItem.item_icon}')` }}
                                     className={`item-slot ${SIZE_BY_SLOT[slot]} bg-image no-effect mx-auto`}>
                                 </div>
                                 {selectionItem.item_magic_att_1 === -1 &&
