@@ -132,8 +132,6 @@ const calculationsApi = (version) => {
         
         const statDiff = getDiffFromClosestWeapon(build.item, build.level, 0, 0, parseInt(build.int))
 
-        console.log(weaponDmg, statDiff)
-
         const bonuses = getStatBonusByItems(build)
         
         const baseDmg = calcBaseMagicDmg(build.level, build.race, build.charClass,
