@@ -1,6 +1,6 @@
-import { ITEM_FUNC, ITEM_HAND_TYPE, ITEM_SLOT } from "../assets/itemTypes"
-import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, MAGIC_OPTS_TMPL, WEAPON_TYPES } from "../constants"
-import { calculateMasteryLevel, getFlatAndPercentGrowth, getItemMagicOpts, getStatBonusByItems, getUserMagicOpts, hasEquippedWeapons, magicOptFromName } from "../utils"
+import { ITEM_HAND_TYPE, ITEM_SLOT } from "../assets/itemTypes"
+import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, WEAPON_TYPES } from "../constants"
+import { calculateMasteryLevel, getFlatAndPercentGrowth, getStatBonusByItems } from "../utils"
 import versions from '../versions'
 import { getDiffFromClosestWeapon } from "./utils"
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { MAX_MAGIC_OPTS } from '../constants'
 
 const MagicOptsDrawer = ({ id = 'check-drawer', itemKey, magicOpts, handleChange }) => {

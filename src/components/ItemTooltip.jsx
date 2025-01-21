@@ -1,4 +1,3 @@
-import React from 'react'
 import ItemData from './ItemData'
 
 const ItemTooltip = ({ item, enchantLevel, magicOpts, version = 'v3' }) => {

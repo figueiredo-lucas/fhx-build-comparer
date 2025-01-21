@@ -1,4 +1,3 @@
-import React from 'react'
 import { discardBuild, isBuildSaved, isBuildUpdated, saveBuild } from '../utils'
 
 const BuildHeader = ({ build, index, handleChange, removeBuild, duplicateBuild }) => {

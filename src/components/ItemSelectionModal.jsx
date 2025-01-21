@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NAME_SPLITTING_REGEX } from '../constants'
 import { itemFromId, magicOptFromName } from '../utils'
 import { isEnchantable, SIZE_BY_SLOT } from '../assets/itemTypes'

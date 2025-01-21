@@ -1,4 +1,3 @@
-import React from 'react'
 import { CLASSES, HAS_MASTERY, RACES, RACES_CLASSES } from "../constants"
 import { masteriesFromCharClass } from "../utils"
 

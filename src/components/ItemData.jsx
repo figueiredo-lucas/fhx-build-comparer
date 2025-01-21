@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import calculationsApi from '../api/calculationsApi'
 import { MAGIC_OPTS_TMPL } from '../constants'
-import { getDefenseByItems, magicOptFromId } from '../utils'
+import { magicOptFromId } from '../utils'
 import constitutionApi from '../api/constitutionApi'
 
 const ItemData = ({ item, enchantLevel = 0, magicOpts = [], version, className = '', shrink }) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ItemSelectionModal from './ItemSelectionModal'
 import { ITEM_HAND_TYPE, ITEM_SLOT } from '../assets/itemTypes'
 import ItemTooltip from './ItemTooltip'
