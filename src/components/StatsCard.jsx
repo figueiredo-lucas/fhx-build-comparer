@@ -1,7 +1,8 @@
 import { useMemo } from "react"
 import calculationsApi from "../api/calculationsApi"
 import constitutionApi from "../api/constitutionApi"
-import { calculateMasteryLevel, getDefenseByItems, getStatBonusByItems } from "../utils"
+import { calculateMasteryLevel } from "../utils"
+import { getDefenseByItems, getStatBonusByItems } from '../api/items'
 
 const StatsCard = ({ build, version = 'v3' }) => {
 

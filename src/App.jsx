@@ -1,31 +1,16 @@
 import { useState } from 'react'
 import BuildCard from './components/BuildCard'
-import { itemFromId, set } from './utils'
+import { set } from './utils'
 import items from './assets/items.json'
 import magicOpts from './assets/magic-opts.json'
-import ls from './api/localStorage'
 import { v4 } from 'uuid'
-import { NAME_SPLITTING_REGEX } from './constants'
 import { filterItemsBySlot, ITEM_SLOT } from './assets/itemTypes'
-
-const createEmptyBuild = () => ({
-    id: v4(),
-    version: 'v3',
-    name: '',
-    race: '',
-    charClass: '',
-    masteries: [],
-    level: 1,
-    vit: '',
-    str: '',
-    dex: '',
-    int: '',
-    items: {},
-})
+import { updateBaseStatByRace } from './assets/charData'
+import { createEmptyBuild, getBuilds } from './api/builds'
 
 function App() {
 
-    const [builds, setBuilds] = useState(ls.get('fhx.builds')?.length ? ls.get('fhx.builds') : [createEmptyBuild()])
+    const [builds, setBuilds] = useState(getBuilds)
 
     const updateBuildInfo = (index, field, value) => {
         const newBuilds = [...builds]
@@ -34,41 +19,18 @@ function App() {
 
         if (field === 'race') {
             set(newBuild, 'charClass', '')
-            set(newBuild, 'mastery', '')
+            set(newBuild, 'masteries', [])
+            updateBaseStatByRace(newBuild, value)
         }
 
         if (field === 'charClass') {
-            set(newBuild, 'mastery', '')
-            set(newBuild, 'masteryLevel', '')
+            set(newBuild, 'masteries', [])
         }
         
         if (field === 'race'
             || (field === 'charClass' && newBuild.charClass !== '0')
             || (field === 'mastery' && newBuild.mastery !== '6')) {
-            set(newBuild, 'masteryLevel', '')
-            set(newBuild, 'secondaryItem', null)
-            set(newBuild, 'secondaryItemName', '')
-            set(newBuild, 'secondaryEnchantLevel', 0)
-        }
-
-        if (field === 'itemName') {
-            const found = value.match(NAME_SPLITTING_REGEX)
-            set(newBuild, 'item', null)
-            if (found) {
-                const { id, name } = found.groups
-                set(newBuild, field, name)
-                set(newBuild, 'item', itemFromId(id) || null)
-            }
-        }
-
-        if (field === 'secondaryItemName') {
-            const found = value.match(NAME_SPLITTING_REGEX)
-            set(newBuild, 'secondaryItem', null)
-            if (found) {
-                const { id, name } = found.groups
-                set(newBuild, field, name)
-                set(newBuild, 'secondaryItem', itemFromId(id) || null)
-            }
+            set(newBuild, 'masteries', [])
         }
 
         newBuilds.splice(index, 1, newBuild)

@@ -1,8 +1,9 @@
 import { ITEM_HAND_TYPE, ITEM_SLOT } from "../assets/itemTypes"
 import { MAGIC_OPTS_MAGIC, MAGIC_OPTS_PYHS, WEAPON_TYPES } from "../constants"
-import { calculateMasteryLevel, getFlatAndPercentGrowth, getStatBonusByItems } from "../utils"
+import { calculateMasteryLevel } from "../utils"
 import versions from '../versions'
-import { getDiffFromClosestWeapon } from "./utils"
+import { getDiffFromClosestWeapon, getHandItem } from "./utils"
+import { getFlatAndPercentGrowth, getStatBonusByItems } from "./items"
 
 const calculationsApi = (version) => {
 
@@ -77,8 +78,9 @@ const calculationsApi = (version) => {
 
     const getStatPhysDmg = (build) => {
         
-        const leftHand = build.items[ITEM_SLOT.LEFT_HAND]
-        const rightHand = build.items[ITEM_SLOT.RIGHT_HAND]
+        const leftHand = getHandItem(build, ITEM_SLOT.LEFT_HAND)
+        const rightHand = leftHand?.item?.hand_type === ITEM_HAND_TYPE.TWO_HANDED
+            ? null : getHandItem(build, ITEM_SLOT.RIGHT_HAND)
 
         if (!leftHand?.item || !build.race || !build.charClass || !build.level
             || !build.str || !build.dex
@@ -111,26 +113,17 @@ const calculationsApi = (version) => {
     }
 
     const getStatMagicDmg = (build) => {
-        const leftHand = build.items[ITEM_SLOT.LEFT_HAND]
-        const rightHand = build.items[ITEM_SLOT.RIGHT_HAND]
+        // if the staff was added on the right hand, it will get the proper value
+        const leftHand = getHandItem(build, ITEM_SLOT.LEFT_HAND)
 
-        if (!build.race || !build.charClass
+        if (!leftHand?.item || !build.race || !build.charClass
             || !build.level || !build.int) return { min: 0, max: 0 }
-
             
         if (leftHand?.item && WEAPON_TYPES[leftHand.item.item_type] !== 'magic') return { min: 0, max: 0 }
-            
-        let handItem = leftHand?.item
-
-        if (rightHand?.item && WEAPON_TYPES[rightHand.item.item_type] && rightHand.item.hand_type === ITEM_HAND_TYPE.TWO_HANDED)
-            handItem = rightHand.item
-
-        if (!handItem) return { min: 0, max: 0 }
-
         
         const weaponDmg = getMagicDmg(leftHand.item, leftHand.enchantLevel, leftHand.magicOpts)
         
-        const statDiff = getDiffFromClosestWeapon(build.item, build.level, 0, 0, parseInt(build.int))
+        const statDiff = getDiffFromClosestWeapon(leftHand.item, build.level, 0, 0, parseInt(build.int))
 
         const bonuses = getStatBonusByItems(build)
         

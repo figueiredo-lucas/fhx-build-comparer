@@ -1,7 +1,7 @@
 import { ITEM_TYPE } from '../assets/itemTypes'
 import { MAGIC_OPTS_DEF_MAGIC, MAGIC_OPTS_DEF_PHYS } from '../constants'
-import { getFlatAndPercentGrowth, getStatBonusByItems, getStatByItems } from '../utils'
 import versions from '../versions'
+import { getStatBonusByItems, getStatByItems, getFlatAndPercentGrowth } from './items'
 
 const constitutionApi = (version) => {
 

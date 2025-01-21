@@ -1,4 +1,4 @@
-import { discardBuild, isBuildSaved, isBuildUpdated, saveBuild } from '../utils'
+import { discardBuild, isBuildSaved, isBuildUpdated, saveBuild } from '../api/builds'
 
 const BuildHeader = ({ build, index, handleChange, removeBuild, duplicateBuild }) => {
     return (

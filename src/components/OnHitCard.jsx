@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import onHitApi from '../api/onHitApi'
 import { getDiffFromClosestWeapon } from '../api/utils'
-import { getEvasionByItems, getStatByItems, getStatBonusByItems } from '../utils'
 import { ITEM_SLOT, ITEM_TYPE } from '../assets/itemTypes'
+import { getEvasionByItems, getStatBonusByItems, getStatByItems } from '../api/items'
 
 const OnHitCard = ({ build, version = 'v3' }) => {
     const {

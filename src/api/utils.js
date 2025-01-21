@@ -1,4 +1,5 @@
 import items from '../assets/items.json'
+import { ITEM_HAND_TYPE, ITEM_SLOT } from '../assets/itemTypes'
 
 export const getDiffFromClosestWeapon = (item, level, baseStr, baseDex, baseInt) => {
     if (!item) return { str: 0, dex: 0, intel: 0 }
@@ -22,4 +23,18 @@ export const getDiffFromClosestWeapon = (item, level, baseStr, baseDex, baseInt)
         }
     }
     return diff
+}
+
+export const getItem = (build, slot) => build.items?.[slot] || {}
+
+export const getHandItem = (build, slot) => {
+    const oppositeSlot = slot === ITEM_SLOT.LEFT_HAND ? ITEM_SLOT.RIGHT_HAND : ITEM_SLOT.LEFT_HAND
+    const item = getItem(build, slot)
+    const oppositeItem = getItem(build, oppositeSlot)
+
+    if (!oppositeItem?.item && item?.item)
+        return item
+    else if (!item?.item && oppositeItem?.item && oppositeItem?.item?.hand_type === ITEM_HAND_TYPE.TWO_HANDED)
+        return oppositeItem
+    return item
 }
